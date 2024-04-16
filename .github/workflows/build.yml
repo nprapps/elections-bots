@@ -11,5 +11,5 @@ jobs:
         run: npm install
       - name: Run Code
         env:
-        SHEETS_ID: ${{secrets.SHEETS_ID}}
+          SHEETS_ID: ${{secrets.SHEETS_ID}}
         run: node elex-testing-results/app.js
