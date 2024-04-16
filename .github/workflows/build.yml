@@ -12,4 +12,5 @@ jobs:
       - name: Run Code
         env:
           SHEETS_ID: ${{secrets.SHEETS_ID}}
+          SLACK_TOKEN: ${{secrets.SLACK_TOKEN}}
         run: node elex-testing-results/app.js

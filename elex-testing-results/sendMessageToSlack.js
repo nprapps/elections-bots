@@ -18,7 +18,7 @@ async function sendMessageToSlack(data) {
     await web.chat.postMessage({
       channel: channelId,
       //! TODO: replace with data from API
-      text: "message",
+      text: "message coming from github actions",
     });
 
     console.log("Message has been posted");
