@@ -1,1 +1,1 @@
-console.log('Hello! We are testing github actions')
+console.log("Hello! We are testing github actions");
