@@ -14,5 +14,5 @@ jobs:
         env:
           SHEETS_ID: ${{secrets.SHEETS_ID}}
           SLACK_TOKEN: ${{secrets.SLACK_TOKEN}}
-          API_KEY: ${{secrets.API_KEY}}
+          AP_API_KEY: ${{secrets.AP_API_KEY}}
         run: node elex-testing-results/app.js
