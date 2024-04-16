@@ -1,7 +1,5 @@
 name: AP Testing Calendar
-"on":
-  schedule:
-    - cron: "*/15 * * * *"
+on: push
 jobs:
   build-node:
     runs-on: ubuntu-latest
