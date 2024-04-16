@@ -1,4 +1,4 @@
-const { getDataFromSheets } = require("./getDataFromSheets");
+const { getElexTestData } = require("./getElexTestData");
 const { sendMessageToSlack } = require("./sendMessageToSlack");
 
 (async function () {
