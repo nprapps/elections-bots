@@ -1,6 +1,7 @@
 require("dotenv").config();
 var { google } = require("googleapis");
-var login = require("@nprapps/google-login");
+// var login = require("@nprapps/google-login");
+var login = require("./auth");
 
 async function updateDateInSheets(lastUpdatedDate) {
   const spreadsheetId = process.env.SHEETS_ID;

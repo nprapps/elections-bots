@@ -1,6 +1,7 @@
 require("dotenv").config();
 var { google } = require("googleapis");
-var login = require("@nprapps/google-login");
+// var login = require("@nprapps/google-login");
+var login = require("./auth");
 
 const spreadsheetId = process.env.SHEETS_ID;
 const range = "Sheet1!A4:Z10000";

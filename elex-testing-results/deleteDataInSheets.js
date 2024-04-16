@@ -1,6 +1,7 @@
 require("dotenv").config();
 var { google } = require("googleapis");
-var login = require("@nprapps/google-login");
+// var login = require("@nprapps/google-login");
+var login = require("./auth");
 
 async function deleteDataInSheets() {
   const spreadsheetId = process.env.SHEETS_ID;
@@ -21,7 +22,6 @@ async function deleteDataInSheets() {
   }
 }
 
-deleteDataInSheets();
 module.exports = {
   deleteDataInSheets,
 };
