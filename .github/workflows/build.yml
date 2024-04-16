@@ -1,7 +1,6 @@
 name: AP Testing Calendar
+#! change this to a cron job
 on: push
-env:
-  API_KEY: ${{secrets.API_KEY}}
 jobs:
   build-node:
     runs-on: ubuntu-latest
@@ -15,4 +14,5 @@ jobs:
         env:
           SHEETS_ID: ${{secrets.SHEETS_ID}}
           SLACK_TOKEN: ${{secrets.SLACK_TOKEN}}
+          API_KEY: ${{secrets.API_KEY}}
         run: node elex-testing-results/app.js
