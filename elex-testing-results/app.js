@@ -6,5 +6,7 @@ const { sendMessageToSlack } = require("./sendMessageToSlack");
 
   //   const isSheetEmpty = await getDataFromSheets();
   //   console.log({ isSheetEmpty });
+  const data = await getElexTestData();
+  console.log("data.lastUpdatedDate: ", data.lastUpdatedDate);
   await sendMessageToSlack();
 })();
