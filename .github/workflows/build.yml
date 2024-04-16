@@ -15,6 +15,6 @@ jobs:
           SHEETS_ID: ${{secrets.SHEETS_ID}}
           SLACK_TOKEN: ${{secrets.SLACK_TOKEN}}
           AP_API_KEY: ${{secrets.AP_API_KEY}}
-          clientID: ${{secrets.CLIENT_ID}}
-          secret: ${{secrets.CLIENT_SECRET}}
+          GOOGLE_OAUTH_CLIENT_ID: ${{secrets.GOOGLE_OAUTH_CLIENT_ID}}
+          GOOGLE_OAUTH_CONSUMER_SECRET: ${{secrets.GOOGLE_OAUTH_CONSUMER_SECRET}}
         run: node elex-testing-results/app.js
