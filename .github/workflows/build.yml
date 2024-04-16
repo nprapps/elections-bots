@@ -10,4 +10,6 @@ jobs:
       - name: Install Dependencies
         run: npm install
       - name: Run Code
+        env:
+        SHEETS_ID: ${{secrets.SHEETS_ID}}
         run: node elex-testing-results/app.js
