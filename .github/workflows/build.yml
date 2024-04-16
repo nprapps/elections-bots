@@ -1,11 +1,11 @@
 name: AP Testing Calendar
-on:
+'on':
   schedule:
-    - cron: "*/5 * * * *"
+    - cron: '*/5 * * * *'
 jobs:
   build-node:
     runs-on: ubuntu-latest
-    container: node:16
+    container: 'node:16'
     steps:
       - run: node --version
       - run: npm --version
