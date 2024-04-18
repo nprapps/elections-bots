@@ -1,4 +1,5 @@
 var { google } = require("googleapis");
+var path = require("path");
 const config = require("./google_creds.js");
 
 var clientID = process.env.GOOGLE_OAUTH_CLIENT_ID;
@@ -19,6 +20,13 @@ var getClient = function () {
     console.log({ err });
     console.log("Unable to load existing tokens");
   }
+
+  auth.on("tokens", function (update) {
+    Object.assign(tokens, update);
+    console.log({ update });
+    console.log(path.resolve(__dirname, "google_creds.js"));
+    // fs.writeFileSync(tokenLocation, JSON.stringify(tokens, null, 2));
+  });
 
   return auth;
 };
