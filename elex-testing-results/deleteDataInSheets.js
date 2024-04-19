@@ -1,27 +1,30 @@
-require('dotenv').config()
+require("dotenv").config();
 var { google } = require("googleapis");
-var login = require("@nprapps/google-login");
 
 async function deleteDataInSheets() {
-    const spreadsheetId = process.env.SHEETS_ID
-    const range = "Sheet1!A1:Z10000"
+  const GOOGLE_CREDENTIALS = JSON.parse(process.env.GOOGLE_CREDENTIALS);
 
-    var auth = login.getClient();
-    const sheets = google.sheets({ version: 'v4', auth });
+  const client = new google.auth.GoogleAuth({
+    credentials: GOOGLE_CREDENTIALS,
+    scopes: ["https://www.googleapis.com/auth/spreadsheets"],
+  });
 
-    try {
-        const result = await sheets.spreadsheets.values.clear({
-            spreadsheetId,
-            range,
-        });
-        console.log("Data cleared");
-        return result;
-    } catch (err) {
-        throw err;
-    }
+  const sheets = google.sheets({ version: "v4", auth: client });
+  const spreadsheetId = process.env.SHEETS_ID;
+  const range = "Sheet1!A1:Z10000";
+
+  try {
+    const result = await sheets.spreadsheets.values.clear({
+      spreadsheetId,
+      range,
+    });
+    console.log("Data cleared");
+    return result;
+  } catch (err) {
+    throw err;
+  }
 }
 
-deleteDataInSheets()
 module.exports = {
-    deleteDataInSheets
-}
+  deleteDataInSheets,
+};
