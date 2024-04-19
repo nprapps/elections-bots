@@ -3,9 +3,7 @@ const { writeDataToSheets } = require("./writeDataToSheets");
 const { getElexTestData } = require("./getElexTestData");
 
 (async function () {
-  console.log("Hello");
   const isSheetEmpty = await getDataFromSheets();
-  console.log({ isSheetEmpty });
 
   //! This is confusing as hell, make it clearer
   if (!isSheetEmpty) {
@@ -18,6 +16,7 @@ const { getElexTestData } = require("./getElexTestData");
 
     await writeDataToSheets(lastUpdatedDate, elexTestData);
   } else {
+    //!We need to add logic here
     console.log("Hi");
   }
 })();
