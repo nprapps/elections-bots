@@ -4,10 +4,10 @@ var { google } = require("googleapis");
 async function updateDateInSheets(lastUpdatedDate) {
   const range = "Sheet1!A1:B1";
   const valueInputOption = "USER_ENTERED";
-  const GOOGLE_CREDS = JSON.parse(process.env.GOOGLE_CREDS);
+  const GOOGLE_CREDENTIALS = JSON.parse(process.env.GOOGLE_CREDENTIALS);
 
   const client = new google.auth.GoogleAuth({
-    credentials: GOOGLE_CREDS,
+    credentials: GOOGLE_CREDENTIALS,
     scopes: ["https://www.googleapis.com/auth/spreadsheets"],
   });
 

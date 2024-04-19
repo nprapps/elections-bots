@@ -2,10 +2,10 @@ require("dotenv").config();
 var { google } = require("googleapis");
 
 async function deleteDataInSheets() {
-  const GOOGLE_CREDS = JSON.parse(process.env.GOOGLE_CREDS);
+  const GOOGLE_CREDENTIALS = JSON.parse(process.env.GOOGLE_CREDENTIALS);
 
   const client = new google.auth.GoogleAuth({
-    credentials: GOOGLE_CREDS,
+    credentials: GOOGLE_CREDENTIALS,
     scopes: ["https://www.googleapis.com/auth/spreadsheets"],
   });
 
