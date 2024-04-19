@@ -1,7 +1,5 @@
 require("dotenv").config();
 var { google } = require("googleapis");
-// var login = require("@nprapps/google-login");
-var login = require("./auth");
 const { updateDateInSheets } = require("./updateDateInSheets");
 const { sendMessageToSlack } = require("./sendMessageToSlack");
 
@@ -9,11 +7,15 @@ async function writeDataToSheets(lastUpdatedDate, values) {
   const spreadsheetId = process.env.SHEETS_ID;
   const range = "Sheet1!A4:Z10000";
   const valueInputOption = "USER_ENTERED";
+  const GOOGLE_CREDS = JSON.parse(process.env.GOOGLE_CREDS);
+
+  const client = new google.auth.GoogleAuth({
+    credentials: GOOGLE_CREDS,
+    scopes: ["https://www.googleapis.com/auth/spreadsheets"],
+  });
 
   await updateDateInSheets(lastUpdatedDate);
-
-  var auth = login.getClient();
-  const sheets = google.sheets({ version: "v4", auth });
+  const sheets = google.sheets({ version: "v4", auth: client });
 
   try {
     const result = await sheets.spreadsheets.values.append({
@@ -33,7 +35,7 @@ async function writeDataToSheets(lastUpdatedDate, values) {
     // } else {
     //     do nothing
     // }
-    // await sendMessageToSlack()
+    await sendMessageToSlack();
 
     return result;
   } catch (err) {

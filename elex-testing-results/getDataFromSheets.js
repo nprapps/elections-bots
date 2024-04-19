@@ -1,14 +1,17 @@
 require("dotenv").config();
 var { google } = require("googleapis");
-// var login = require("@nprapps/google-login");
-var login = require("./auth");
 
 async function getDataFromSheets() {
-  const spreadsheetId = process.env.SHEETS_ID;
-  const range = "Sheet1!A1:B1";
+  const GOOGLE_CREDS = JSON.parse(process.env.GOOGLE_CREDS);
 
-  var auth = login.getClient();
-  const sheets = google.sheets({ version: "v4", auth });
+  const client = new google.auth.GoogleAuth({
+    credentials: GOOGLE_CREDS,
+    scopes: ["https://www.googleapis.com/auth/spreadsheets"],
+  });
+
+  const sheets = google.sheets({ version: "v4", auth: client });
+  const spreadsheetId = process.env.SHEETS_ID;
+  const range = "Sheet1!A1:Z10000";
 
   try {
     const result = await sheets.spreadsheets.values.get({

@@ -1,11 +1,6 @@
 require("dotenv").config();
 var { google } = require("googleapis");
-// var login = require("@nprapps/google-login");
-var login = require("./auth");
-
-const spreadsheetId = process.env.SHEETS_ID;
-const range = "Sheet1!A4:Z10000";
-const valueInputOption = "USER_ENTERED";
+const { auth } = require("google-auth-library");
 
 //! Replace them with values from AP API
 const values = [
@@ -15,8 +10,13 @@ const values = [
 ];
 
 async function writeTestData(auth) {
-  var auth = login.getClient();
-  const sheets = google.sheets({ version: "v4", auth });
+  const client = auth.fromJSON(require("./creds.json"));
+  client.scopes = ["https://www.googleapis.com/auth/spreadsheets"];
+  const valueInputOption = "USER_ENTERED";
+
+  const sheets = google.sheets({ version: "v4", auth: client });
+  const spreadsheetId = process.env.SHEETS_ID;
+  const range = "Sheet1!A1:Z10000";
 
   try {
     const result = await sheets.spreadsheets.values.append({
