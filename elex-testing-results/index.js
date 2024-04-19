@@ -3,6 +3,7 @@ const { writeDataToSheets } = require("./writeDataToSheets");
 const { getElexTestData } = require("./getElexTestData");
 
 (async function () {
+  console.log("Hello");
   const isSheetEmpty = await getDataFromSheets();
   console.log({ isSheetEmpty });
 
