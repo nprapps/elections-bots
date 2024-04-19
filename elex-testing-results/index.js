@@ -4,6 +4,7 @@ const { getElexTestData } = require("./getElexTestData");
 
 (async function () {
   const isSheetEmpty = await getDataFromSheets();
+  console.log({ isSheetEmpty });
 
   //! This is confusing as hell, make it clearer
   if (!isSheetEmpty) {
