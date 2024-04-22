@@ -2,7 +2,7 @@ name: AP Testing Calendar
 
 on: 
   schedule:
-    - cron: "*/30 * * * *"
+    - cron: "25,55 * * * *"
     
 jobs:
   build-node:
