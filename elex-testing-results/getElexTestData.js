@@ -1,4 +1,6 @@
 var axios = require("axios");
+const { filterData } = require("./helpers/filterData");
+const { formatData } = require("./helpers/formatData");
 
 const URL =
   "https://api.ap.org/v3/reports/Calendar-CustomerTesting2024-Live?format=json";
@@ -13,24 +15,14 @@ async function getElexTestData() {
       url: URL,
       headers,
     });
+
     const data = response.data;
     const lastUpdatedDate = data[calendarYear].lastUpdate.lastUpdated;
     const testData = data[calendarYear].TestInformation;
-    const elexTestData = [];
+    const filteredData = await filterData(testData);
+    const formattedTestData = formatData(filteredData);
 
-    //! Here we will create a function to filter the data.
-
-    //* Format data for google sheets
-    testData.map((data) => {
-      elexTestData.push([
-        data.testDate,
-        data.electionEvents,
-        data.activity,
-        data.testTimeET ? data.testTimeET : false,
-      ]);
-    });
-
-    return { lastUpdatedDate, elexTestData };
+    return { lastUpdatedDate, formattedTestData };
   } catch (error) {
     console.error(error);
   }
