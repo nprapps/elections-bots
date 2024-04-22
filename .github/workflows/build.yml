@@ -1,6 +1,9 @@
 name: AP Testing Calendar
-#! change this to a cron job
-on: push
+
+on: 
+  schedule:
+    - cron: "*/30 * * * *"
+    
 jobs:
   build-node:
     runs-on: ubuntu-latest
