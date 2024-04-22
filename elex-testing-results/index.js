@@ -8,11 +8,10 @@ const { getElexTestData } = require("./getElexTestData");
   //! This is confusing as hell, make it clearer
   if (!isSheetEmpty) {
     //* The sheet is empty
-
     const data = await getElexTestData();
 
     const lastUpdatedDate = data.lastUpdatedDate;
-    const elexTestData = data.elexTestData;
+    const elexTestData = data.formattedTestData;
 
     await writeDataToSheets(lastUpdatedDate, elexTestData);
   } else {
