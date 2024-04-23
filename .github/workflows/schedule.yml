@@ -1,8 +1,8 @@
 name: Send today's schdeule
 
-on: push
-  # schedule:
-  #   - cron: "0 8 * * *"
+on:
+  schedule:
+    - cron: "0 8 * * *"
     
 jobs:
   build-node:
