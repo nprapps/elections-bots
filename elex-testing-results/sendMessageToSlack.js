@@ -9,7 +9,7 @@ async function sendMessageToSlack(data) {
   let scheduledText = `Today's upcoming tests: \n`;
 
   data.map((text) => {
-    scheduledText += `- *${text[2]}* - ${text[1]} (${text[3]}) \n`;
+    scheduledText += `- *${text[2]}* - ${text[1]} ${text[3] ? text[3] : ""} \n`;
   });
 
   try {
