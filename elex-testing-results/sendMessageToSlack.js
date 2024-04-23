@@ -8,6 +8,7 @@ const web = new WebClient(process.env.SLACK_TOKEN);
 async function sendMessageToSlack(data) {
   let scheduledText = `Today's upcoming tests: \n`;
 
+  //! if there is no data for the day, don't send a message
   data.map((text) => {
     scheduledText += `- *${text[2]}* - ${text[1]} ${text[3] ? text[3] : ""} \n`;
   });

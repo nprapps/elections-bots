@@ -2,7 +2,7 @@ name: Send today's schdeule
 
 on:
   schedule:
-    - cron: "0 8 * * *"
+    - cron: "52 7 * * *"
     
 jobs:
   build-node:
