@@ -12,6 +12,8 @@ async function sendSchedule() {
   await sendMessageToSlack(data);
 }
 
+sendSchedule();
+
 module.exports = {
   sendSchedule,
 };
