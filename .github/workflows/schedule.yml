@@ -1,0 +1,22 @@
+name: Send today's schdeule
+
+on:
+  schedule:
+    - cron: "0 8 * * *"
+    
+jobs:
+  build-node:
+    runs-on: ubuntu-latest
+    container: "node:16"
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+      - name: Install Dependencies
+        run: npm install
+      - name: Run Code
+        env:
+          SHEETS_ID: ${{secrets.SHEETS_ID}}
+          SLACK_TOKEN: ${{secrets.SLACK_TOKEN}}
+          AP_API_KEY: ${{secrets.AP_API_KEY}}
+          GOOGLE_CREDENTIALS: ${{secrets.GOOGLE_CREDENTIALS}}
+        run: node elex-testing-results/sendSchedule.js
