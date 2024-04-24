@@ -6,6 +6,8 @@ const channelID = "C06TYKYGGM9";
 const web = new WebClient(process.env.SLACK_TOKEN);
 
 async function sendMessageToSlack(data) {
+  console.log({ data });
+  //! test should be singular if there is only one test for the day
   let scheduledText = `Today's upcoming tests: \n`;
 
   //! if there is no data for the day, don't send a message
