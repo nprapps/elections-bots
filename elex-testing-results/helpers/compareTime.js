@@ -1,72 +1,50 @@
-const { filterTodaysData } = require("./filterTodaysData");
-const { getElexTestData } = require("../getElexTestData");
+const { getTodaysTests } = require("./getTodaysTests");
 const { diff_minutes } = require("./diffMinutes");
-const { sendMessageToSlack } = require("../sendMessageToSlack");
 
-async function compareTime() {
-  const elexData = await getElexTestData();
-  const todaysDate = new Date().toDateString();
+async function compareTime(elexTestData) {
+  const fakeData = {
+    lastUpdatedDate: "April 11, 2024",
+    testInformation: [
+      [
+        "2024-04-24",
+        "PR Dem Presidential Primary",
+        "Customer Testing",
+        "12:00 pm-1:00 pm",
+      ],
+      [
+        "2024-04-24",
+        "NY CD 26 Special Election",
+        "Customer Testing",
+        "2:30 pm-3:30 pm",
+      ],
+    ],
+  };
 
-  const fakeData = [
-    [
-      "2024-04-23",
-      "CO NY UT State Primaries, SC Primary Runoff",
-      "Customer Testing",
-      "2:00 pm-3:30 pm",
-    ],
-    [
-      "2024-04-23",
-      "CO NY UT State Primaries, SC Primary Runoff",
-      "Customer Testing",
-      "2:30 pm-3:30 pm",
-    ],
-    [
-      "2024-04-23",
-      "CO NY UT State Primaries, SC Primary Runoff",
-      "Election Day",
-      false,
-    ],
-    ["2024-04-23", "TN State Primary", "Customer Testing", "1:00 pm-2:00 pm"],
-    [
-      "2024-04-23",
-      "KS MI MO WA State Primaries",
-      "Customer Testing",
-      "4:00 pm-4:30 pm",
-    ],
-    [
-      "2024-04-23",
-      "Arizona State Primary",
-      "Customer Testing",
-      "4:05 pm-5:00 pm",
-    ],
-  ];
+  //!change this to elexTestData
+  const todaysTests = getTodaysTests(fakeData);
 
-  //   const data = filterTodaysData(fakeData);
-  const filteredData = fakeData.filter(
-    (data) => new Date(`${data[0]}T00:00`).toDateString() === todaysDate
-  );
+  console.log({ todaysTests });
 
   const currentTime = new Date();
   const messagesToSend = [];
 
-  filteredData.map((data) => {
+  todaysTests.map((data) => {
     const date = data[0];
     const time = data[3];
     if (time) {
-      const startTestingTime = time.slice(0, 7);
+      const startTestingTime = `${time.slice(0, 5)} pm`;
       let testingTime = new Date(`${date} ${startTestingTime}`);
       const timeDiff = diff_minutes(currentTime, testingTime);
+
+      console.log(startTestingTime, testingTime, timeDiff);
 
       if (timeDiff > 0 && timeDiff <= 40) {
         messagesToSend.push(data);
       }
     }
   });
-
   return messagesToSend;
 }
-
-compareTime();
 
 module.exports = {
   compareTime,

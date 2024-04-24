@@ -1,7 +1,7 @@
-function filterTodaysData(elexData) {
+function getTodaysTests(elexData) {
   const todaysDate = new Date().toDateString();
 
-  const filteredData = elexData.formattedTestData.filter(
+  const filteredData = elexData.testInformation.filter(
     (data) => new Date(`${data[0]}T00:00`).toDateString() === todaysDate
   );
 
@@ -9,5 +9,5 @@ function filterTodaysData(elexData) {
 }
 
 module.exports = {
-  filterTodaysData,
+  getTodaysTests,
 };

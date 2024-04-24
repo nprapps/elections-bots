@@ -1,21 +1,13 @@
-const { getDataFromSheets } = require("./getDataFromSheets");
-const { writeDataToSheets } = require("./writeDataToSheets");
-const { getElexTestData } = require("./getElexTestData");
+const { getElexTestData } = require("./api/getElexTestData");
+const { sendMessageToSlack } = require("./slack/sendMessageToSlack");
+const { compareTime } = require("./helpers/compareTime");
 
 (async function () {
-  const isSheetEmpty = await getDataFromSheets();
+  const elexData = await getElexTestData();
 
-  //! This is confusing as hell, make it clearer
-  if (!isSheetEmpty) {
-    //* The sheet is empty
-    const data = await getElexTestData();
+  const upcomingTests = await compareTime(elexData);
 
-    const lastUpdatedDate = data.lastUpdatedDate;
-    const elexTestData = data.formattedTestData;
-
-    await writeDataToSheets(lastUpdatedDate, elexTestData);
-  } else {
-    //!We need to add logic here
-    console.log("Hi");
+  if (upcomingTests.length) {
+    await sendMessageToSlack(upcomingTests);
   }
 })();

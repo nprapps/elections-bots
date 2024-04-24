@@ -1,6 +1,6 @@
 var axios = require("axios");
-const { filterData } = require("./helpers/filterData");
-const { formatData } = require("./helpers/formatData");
+const { getUpcomingTests } = require("../helpers/getUpcomingTests");
+const { formatData } = require("../helpers/formatData");
 
 const URL =
   "https://api.ap.org/v3/reports/Calendar-CustomerTesting2024-Live?format=json";
@@ -19,10 +19,10 @@ async function getElexTestData() {
     const data = response.data;
     const lastUpdatedDate = data[calendarYear].lastUpdate.lastUpdated;
     const testData = data[calendarYear].TestInformation;
-    const filteredData = await filterData(testData);
-    const formattedTestData = formatData(filteredData);
+    const filteredData = await getUpcomingTests(testData);
+    const testInformation = formatData(filteredData);
 
-    return { lastUpdatedDate, formattedTestData };
+    return { lastUpdatedDate, testInformation };
   } catch (error) {
     console.error(error);
   }

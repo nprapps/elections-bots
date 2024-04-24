@@ -19,4 +19,4 @@ jobs:
           SLACK_TOKEN: ${{secrets.SLACK_TOKEN}}
           AP_API_KEY: ${{secrets.AP_API_KEY}}
           GOOGLE_CREDENTIALS: ${{secrets.GOOGLE_CREDENTIALS}}
-        run: node elex-testing-results/sendSchedule.js
+        run: node elex-testing-results/slack/sendSchedule.js
