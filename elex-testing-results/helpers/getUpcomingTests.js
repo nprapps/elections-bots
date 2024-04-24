@@ -1,4 +1,4 @@
-async function filterData(testData) {
+async function getUpcomingTests(testData) {
   const yesterdaysDate = new Date(new Date().setDate(new Date().getDate() - 1));
 
   return testData.filter(
@@ -7,5 +7,5 @@ async function filterData(testData) {
 }
 
 module.exports = {
-  filterData,
+  getUpcomingTests,
 };

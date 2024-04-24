@@ -1,7 +1,6 @@
 require("dotenv").config();
 var { google } = require("googleapis");
 const { updateDateInSheets } = require("./updateDateInSheets");
-const { sendMessageToSlack } = require("./sendMessageToSlack");
 
 async function writeDataToSheets(lastUpdatedDate, values) {
   const spreadsheetId = process.env.SHEETS_ID;
@@ -26,16 +25,6 @@ async function writeDataToSheets(lastUpdatedDate, values) {
     });
 
     console.log("%d cells updated.", result.data.updates.updatedCells);
-
-    //! Check if there is any upcoming test data for today
-    // if(upcomingTests){
-    //     start the cron job for today
-    //
-    //     send slack message accordingly
-    // } else {
-    //     do nothing
-    // }
-    await sendMessageToSlack();
 
     return result;
   } catch (err) {
