@@ -1,8 +1,9 @@
 name: AP Testing Calendar
 
-on: 
-  schedule:
-    - cron: "25,55 * * * *"
+on: push
+  
+  # schedule:
+  #   - cron: "25,55 * * * *"
     
 jobs:
   build-node:

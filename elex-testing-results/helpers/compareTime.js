@@ -17,6 +17,12 @@ async function compareTime(elexTestData) {
         "Customer Testing",
         "2:30 pm-3:30 pm",
       ],
+      [
+        "2024-04-24",
+        "NY CD 26 Special Election",
+        "Customer Testing",
+        "3:00 pm-3:30 pm",
+      ],
     ],
   };
 
@@ -32,11 +38,16 @@ async function compareTime(elexTestData) {
     const date = data[0];
     const time = data[3];
     if (time) {
+      //! We need to change it to UTC time
       const startTestingTime = `${time.slice(0, 5)} pm`;
+      console.log({ startTestingTime });
+      console.log({ currentTime });
       let testingTime = new Date(`${date} ${startTestingTime}`);
+      console.log({ testingTime });
       const timeDiff = diff_minutes(currentTime, testingTime);
 
-      console.log(startTestingTime, testingTime, timeDiff);
+      console.log({ timeDiff });
+      console.log("-------");
 
       if (timeDiff > 0 && timeDiff <= 40) {
         messagesToSend.push(data);
