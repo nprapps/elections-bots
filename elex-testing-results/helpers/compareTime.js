@@ -27,7 +27,7 @@ async function compareTime(elexTestData) {
   };
 
   //!change this to elexTestData
-  const todaysTests = getTodaysTests(fakeData);
+  const todaysTests = getTodaysTests(elexTestData);
 
   console.log({ todaysTests });
 
@@ -43,7 +43,11 @@ async function compareTime(elexTestData) {
       console.log({ startTestingTime });
       console.log({ currentTime });
       let testingTime = new Date(`${date} ${startTestingTime}`);
+      let testingTimeUTC = Date.parse(new Date(`${date} ${startTestingTime}`));
+
       console.log({ testingTime });
+      console.log({ testingTimeUTC });
+
       const timeDiff = diff_minutes(currentTime, testingTime);
 
       console.log({ timeDiff });
