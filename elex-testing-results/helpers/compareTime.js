@@ -27,7 +27,7 @@ async function compareTime(elexTestData) {
   };
 
   //!change this to elexTestData
-  const todaysTests = getTodaysTests(fakeData);
+  const todaysTests = getTodaysTests(elexTestData);
 
   console.log({ todaysTests });
 
