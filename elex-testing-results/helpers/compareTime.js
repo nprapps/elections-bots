@@ -21,7 +21,7 @@ async function compareTime(elexTestData) {
         "2024-04-26",
         "NY CD 26 Special Election",
         "Customer Testing",
-        "2:00 pm-7:30 pm",
+        "4:30 pm-7:30 pm",
       ],
       [
         "2024-04-26",
@@ -50,9 +50,7 @@ async function compareTime(elexTestData) {
     const date = data[0];
     const time = data[3];
 
-    console.log({ time });
     if (time) {
-      //! don't hard code pm value
       const timePeriod = time.split("-")[0].slice(-2);
       const startTestingTime = `${time.slice(0, 5)} ${timePeriod}`;
 
