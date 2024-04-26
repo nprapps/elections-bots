@@ -45,22 +45,19 @@ async function compareTime(elexTestData) {
     const date = data[0];
     const time = data[3];
     if (time) {
-      //! We need to change it to UTC time
       const startTestingTime = `${time.slice(0, 5)} pm`;
 
       let testingTime = new Date(`${date} ${startTestingTime}`);
-      let testingTimeUTC = Date.parse(new Date(`${date} ${startTestingTime}`));
 
-      const timeDiff = diff_minutes(currentTime, testingTimeUTC);
+      const timeDiff = diff_minutes(currentTime, testingTime);
 
       console.log({ startTestingTime });
-      console.log({ testingTimeUTC });
       console.log({ testingTime });
 
       console.log({ timeDiff });
       console.log("-------");
 
-      if (timeDiff > 0 && timeDiff <= 40) {
+      if (timeDiff > 240 && timeDiff <= 280) {
         messagesToSend.push(data);
       }
     }
