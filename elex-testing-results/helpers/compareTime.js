@@ -36,6 +36,9 @@ async function compareTime(elexTestData) {
     timeZone: "America/New_York",
   });
 
+  console.log({ currentTime });
+  console.log({ currentTimeEST });
+
   const messagesToSend = [];
 
   todaysTests.map((data) => {
@@ -49,6 +52,10 @@ async function compareTime(elexTestData) {
       let testingTimeUTC = Date.parse(new Date(`${date} ${startTestingTime}`));
 
       const timeDiff = diff_minutes(currentTime, testingTimeUTC);
+
+      console.log({ startTestingTime });
+      console.log({ testingTimeUTC });
+      console.log({ testingTime });
 
       console.log({ timeDiff });
       console.log("-------");
