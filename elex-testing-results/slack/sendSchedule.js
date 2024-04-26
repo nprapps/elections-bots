@@ -8,7 +8,7 @@ async function sendSchedule() {
   const data = getTodaysTests(elexData);
 
   if (data.length) {
-    await sendMessageToSlack(data);
+    await sendMessageToSlack(data, "scheduleMessage");
   }
 }
 
