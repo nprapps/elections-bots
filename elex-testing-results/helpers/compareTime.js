@@ -6,19 +6,31 @@ async function compareTime(elexTestData) {
     lastUpdatedDate: "April 11, 2024",
     testInformation: [
       [
-        "2024-04-25",
+        "2024-04-26",
         "PR Dem Presidential Primary",
         "Customer Testing",
-        "6:00 pm-7:00 pm",
+        "12:00 pm-7:00 pm",
       ],
       [
-        "2024-04-25",
+        "2024-04-26",
         "NY CD 26 Special Election",
         "Customer Testing",
-        "6:30 pm-7:30 pm",
+        "8:00 am-7:30 pm",
       ],
       [
-        "2024-04-25",
+        "2024-04-26",
+        "NY CD 26 Special Election",
+        "Customer Testing",
+        "2:00 pm-7:30 pm",
+      ],
+      [
+        "2024-04-26",
+        "NY CD 26 Special Election",
+        "Customer Testing",
+        "2:10 pm-7:30 pm",
+      ],
+      [
+        "2024-04-26",
         "NY CD 26 Special Election",
         "Customer Testing",
         "7:00 pm-7:30 pm",
@@ -27,7 +39,7 @@ async function compareTime(elexTestData) {
   };
 
   //!change this to elexTestData
-  const todaysTests = getTodaysTests(elexTestData);
+  const todaysTests = getTodaysTests(fakeData);
 
   console.log({ todaysTests });
 
