@@ -38,21 +38,11 @@ async function compareTime(elexTestData) {
     ],
   };
 
-  //!change this to elexTestData
-  const todaysTests = getTodaysTests(fakeData);
+  const todaysTests = getTodaysTests(elexTestData);
 
   console.log({ todaysTests });
 
   const currentTime = new Date();
-  const currentTimeUTC = new Date("2024-04-26 4:00 pm").toLocaleTimeString(
-    "en-US",
-    {
-      timeZone: "America/New_York",
-    }
-  );
-
-  // console.log({ currentTime });
-  // console.log({ currentTimeUTC });
 
   const messagesToSend = [];
 
@@ -63,20 +53,20 @@ async function compareTime(elexTestData) {
     console.log({ time });
     if (time) {
       //! don't hard code pm value
-      const startTestingTime = `${time.slice(0, 5)} pm`;
+      const timePeriod = time.split("-")[0].slice(-2);
+      const startTestingTime = `${time.slice(0, 5)} ${timePeriod}`;
 
-      //! add 4 hours to make it to UTC
       let testingTime = new Date(`${date} ${startTestingTime}`);
 
       const timeDiff = diff_minutes(currentTime, testingTime);
 
-      // console.log({ startTestingTime });
-      // console.log({ testingTime });
-
+      console.log({ currentTime });
+      console.log({ startTestingTime });
+      console.log({ testingTime });
       console.log({ timeDiff });
       console.log("-------");
 
-      if (timeDiff > -240 && timeDiff <= -280) {
+      if (timeDiff > 200 && timeDiff <= 240) {
         messagesToSend.push(data);
       }
     }
