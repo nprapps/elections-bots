@@ -6,28 +6,28 @@ async function compareTime(elexTestData) {
     lastUpdatedDate: "April 11, 2024",
     testInformation: [
       [
-        "2024-04-24",
+        "2024-04-25",
         "PR Dem Presidential Primary",
         "Customer Testing",
-        "12:00 pm-1:00 pm",
+        "6:00 pm-7:00 pm",
       ],
       [
-        "2024-04-24",
+        "2024-04-25",
         "NY CD 26 Special Election",
         "Customer Testing",
-        "2:30 pm-3:30 pm",
+        "6:30 pm-7:30 pm",
       ],
       [
-        "2024-04-24",
+        "2024-04-25",
         "NY CD 26 Special Election",
         "Customer Testing",
-        "3:00 pm-3:30 pm",
+        "7:00 pm-7:30 pm",
       ],
     ],
   };
 
   //!change this to elexTestData
-  const todaysTests = getTodaysTests(elexTestData);
+  const todaysTests = getTodaysTests(fakeData);
 
   console.log({ todaysTests });
 
@@ -35,6 +35,7 @@ async function compareTime(elexTestData) {
   const currentTimeEST = new Date().toLocaleTimeString("en-US", {
     timeZone: "America/New_York",
   });
+
   const messagesToSend = [];
 
   todaysTests.map((data) => {
@@ -43,16 +44,11 @@ async function compareTime(elexTestData) {
     if (time) {
       //! We need to change it to UTC time
       const startTestingTime = `${time.slice(0, 5)} pm`;
-      console.log({ startTestingTime });
-      console.log({ currentTime });
-      console.log({ currentTimeEST });
+
       let testingTime = new Date(`${date} ${startTestingTime}`);
       let testingTimeUTC = Date.parse(new Date(`${date} ${startTestingTime}`));
 
-      console.log({ testingTime });
-      console.log({ testingTimeUTC });
-
-      const timeDiff = diff_minutes(currentTime, testingTime);
+      const timeDiff = diff_minutes(currentTime, testingTimeUTC);
 
       console.log({ timeDiff });
       console.log("-------");

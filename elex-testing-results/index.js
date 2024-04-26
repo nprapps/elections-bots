@@ -7,7 +7,7 @@ const { compareTime } = require("./helpers/compareTime");
 
   const upcomingTests = await compareTime(elexData);
 
-  if (upcomingTests.length) {
-    await sendMessageToSlack(upcomingTests);
-  }
+  // if (upcomingTests.length) {
+  //   await sendMessageToSlack(upcomingTests);
+  // }
 })();
