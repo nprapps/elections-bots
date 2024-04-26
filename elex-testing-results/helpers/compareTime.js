@@ -6,39 +6,67 @@ async function compareTime(elexTestData) {
     lastUpdatedDate: "April 11, 2024",
     testInformation: [
       [
-        "2024-04-24",
+        "2024-04-26",
         "PR Dem Presidential Primary",
         "Customer Testing",
-        "12:00 pm-1:00 pm",
+        "3:30 pm-7:00 pm",
       ],
       [
-        "2024-04-24",
+        "2024-04-26",
         "NY CD 26 Special Election",
         "Customer Testing",
-        "2:30 pm-3:30 pm",
+        "4:00 am-7:30 pm",
+      ],
+      [
+        "2024-04-26",
+        "NY CD 26 Special Election",
+        "Customer Testing",
+        "2:00 pm-7:30 pm",
+      ],
+      [
+        "2024-04-26",
+        "NY CD 26 Special Election",
+        "Customer Testing",
+        "12:10 pm-7:30 pm",
+      ],
+      [
+        "2024-04-26",
+        "NY CD 26 Special Election",
+        "Customer Testing",
+        "7:00 pm-7:30 pm",
       ],
     ],
   };
 
-  //!change this to elexTestData
-  const todaysTests = getTodaysTests(fakeData);
+  const todaysTests = getTodaysTests(elexTestData);
 
   console.log({ todaysTests });
 
   const currentTime = new Date();
+
   const messagesToSend = [];
 
   todaysTests.map((data) => {
     const date = data[0];
     const time = data[3];
+
+    console.log({ time });
     if (time) {
-      const startTestingTime = `${time.slice(0, 5)} pm`;
+      //! don't hard code pm value
+      const timePeriod = time.split("-")[0].slice(-2);
+      const startTestingTime = `${time.slice(0, 5)} ${timePeriod}`;
+
       let testingTime = new Date(`${date} ${startTestingTime}`);
+
       const timeDiff = diff_minutes(currentTime, testingTime);
 
-      console.log(startTestingTime, testingTime, timeDiff);
+      console.log({ currentTime });
+      console.log({ startTestingTime });
+      console.log({ testingTime });
+      console.log({ timeDiff });
+      console.log("-------");
 
-      if (timeDiff > 0 && timeDiff <= 40) {
+      if (timeDiff >= 200 && timeDiff <= 240) {
         messagesToSend.push(data);
       }
     }
