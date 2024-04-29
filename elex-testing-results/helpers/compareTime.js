@@ -64,7 +64,7 @@ async function compareTime(elexTestData) {
       console.log({ timeDiff });
       console.log("-------");
 
-      if (timeDiff >= 200 && timeDiff <= 240) {
+      if (timeDiff >= 225 && timeDiff <= 240) {
         messagesToSend.push(data);
       }
     }
