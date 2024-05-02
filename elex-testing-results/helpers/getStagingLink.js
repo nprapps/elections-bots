@@ -72,7 +72,7 @@ async function getStagingLink(data) {
   let string = "";
 
   arr.flat().map((state) => {
-    string += `http://stage-apps.npr.org/civil-intrigue/states/${state} \n`;
+    string += `http://stage-apps.npr.org/civil-intrigue/states/${state}.html \n`;
   });
 
   return string;
