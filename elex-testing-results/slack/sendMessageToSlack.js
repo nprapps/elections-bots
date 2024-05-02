@@ -26,6 +26,8 @@ async function sendMessageToSlack(data, type) {
   try {
     await web.chat.postMessage({
       channel: channelID,
+      unfurl_links: false,
+      unfurl_media: false,
       text:
         type === "scheduleMessage"
           ? scheduledText

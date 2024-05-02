@@ -58,7 +58,7 @@ async function getStagingLink(data) {
     "WI",
     "WY",
   ];
-
+  // Got the code from https://www.codeproject.com/Questions/1165215/Javascript-regexp-find-words-from-array-in-string
   const regex = new RegExp("\\b(" + states.join("|") + ")\\b", "g");
 
   const arr = [];
