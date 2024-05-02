@@ -1,13 +1,17 @@
 const { WebClient } = require("@slack/web-api");
+const { getStagingLink } = require("../helpers/getStagingLink");
 require("dotenv").config();
 
-//! Change this to the main elex channel when ready
-const channelID = "C06TYKYGGM9";
+const channelID = "C047GGNN7PT";
 const web = new WebClient(process.env.SLACK_TOKEN);
 
 async function sendMessageToSlack(data, type) {
   let scheduledText = `Today's upcoming ${data.length ? "tests" : "test"}: \n`;
   let intervalMessage = "";
+
+  console.log({ data });
+  const stagingLinks = await getStagingLink(data);
+  console.log({ stagingLinks });
 
   data.map((text) => {
     scheduledText += `- *${text[2]}* - ${text[1]} ${text[3] ? text[3] : ""} \n`;
@@ -22,7 +26,10 @@ async function sendMessageToSlack(data, type) {
   try {
     await web.chat.postMessage({
       channel: channelID,
-      text: type === "scheduleMessage" ? scheduledText : intervalMessage,
+      text:
+        type === "scheduleMessage"
+          ? scheduledText
+          : intervalMessage + stagingLinks,
     });
 
     console.log("Message has been posted");
