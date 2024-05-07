@@ -7,18 +7,17 @@ const web = new WebClient(process.env.SLACK_TOKEN);
 
 async function sendMessageToSlack(data, type) {
   let scheduledText = `Today's upcoming ${data.length ? "tests" : "test"}: \n`;
-  let intervalMessage = "";
+  let intervalMessage =
+    "Make sure to set `updateRun` to `TRUE` in the <https://docs.google.com/spreadsheets/d/1O9eh7yU5eaK55R4KROdiF_B_I42urTIQllwVOtrhO0M/edit#gid=0|config sheet> for the state. \n \n";
 
-  console.log({ data });
   const stagingLinks = await getStagingLink(data);
-  console.log({ stagingLinks });
 
   data.map((text) => {
     scheduledText += `- *${text[2]}* - ${text[1]} ${text[3] ? text[3] : ""} \n`;
   });
 
-  data.map((text) => {
-    intervalMessage += `AP: ${text[2]} ${
+  data.map((text, index) => {
+    intervalMessage += `        *${index + 1}.* AP: ${text[2]} ${
       text[2] === "Election Day" ? "" : "begins now"
     } - ${text[1]} ${text[3] ? text[3] : ""} \n`;
   });
