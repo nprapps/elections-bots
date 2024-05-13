@@ -69,10 +69,10 @@ async function getStagingLink(data) {
     arr.push(abr);
   });
 
-  let string = "\n \n Find the staging website for the states here: ";
+  let string = "\n \n_Find the staging website for the states here: _";
   let flatArray = arr.flat();
   flatArray.map((state, i) => {
-    string += `<http://stage-apps.npr.org/civil-intrigue/states/${state}.html?eternal|${state}>${
+    string += `<http://stage-apps.npr.org/civil-intrigue/states/${state}.html?eternal|_${state}_>${
       i === flatArray.length - 1 ? "" : ", "
     }`;
   });
