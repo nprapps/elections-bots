@@ -19,6 +19,7 @@ const { formatToAddToSheets } = require("../../helpers/formatToAddToSheets");
 async function compareAndUpdateData(formattedElexData, dataFromSheets) {
   const updatedValues = [];
 
+  //? Will we ever have a time when we will have less formattedElexData than dataFromSheets?
   for (let i = 0; i < formattedElexData.length; i++) {
     if (
       formattedElexData[i].tabulationStatus !==
