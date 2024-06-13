@@ -2,31 +2,25 @@ require("dotenv").config();
 var { google } = require("googleapis");
 var login = require("@nprapps/google-login");
 
-async function getURLFromSheets() {
+async function emptyGSheets() {
   const spreadsheetId = process.env.SHEETS_ID;
-  const range = "Sheet2!B1";
+  const range = "Sheet1!A4:Z10000";
 
   var auth = login.getClient();
   const sheets = google.sheets({ version: "v4", auth });
 
   try {
-    const result = await sheets.spreadsheets.values.get({
+    const result = await sheets.spreadsheets.values.clear({
       spreadsheetId,
       range,
     });
-
-    const rows = result.data.values;
-    if (!rows || rows.length === 0) {
-      console.log("No data found.");
-      return 0;
-    } else {
-      return rows[0][0];
-    }
+    console.log("Data cleared");
+    return result;
   } catch (err) {
     throw err;
   }
 }
 
 module.exports = {
-  getURLFromSheets,
+  emptyGSheets,
 };

@@ -2,21 +2,24 @@ const { writeElexDataToSheets } = require("./sheets/writeElexDataToSheets");
 const { getDataFromSheets } = require("./sheets/getDataFromSheets");
 const { compareAndUpdateData } = require("./sheets/compareAndUpdateData");
 const { getElexData } = require("./api/getElexData");
-const { updateNextRequestURL } = require("./sheets/updateNextRequestURL");
-const { getURLFromSheets } = require("./getURLFromSheets");
+const { emptyGSheets } = require("./sheets/emptyGSheets");
 
 (async function () {
-  const [nextrequest, dataToAddToTheSheets, compareValues] =
-    await getElexData();
-  await updateNextRequestURL([[nextrequest]]);
-  await writeElexDataToSheets(dataToAddToTheSheets);
+  const [formattedElexData, dataToAddToTheSheets] = await getElexData();
 
-  // if (dataToAddToTheSheets) {
-  //   const dataFromSheets = await getDataFromSheets();
-  //   if (dataFromSheets) {
-  //     await compareAndUpdateData(compareValues, dataFromSheets);
-  //   } else {
-  //     await writeElexDataToSheets(dataToAddToTheSheets);
-  //   }
-  // }
+  const sheetsData = await getDataFromSheets();
+
+  if (sheetsData) {
+    const [updatedValues, addUpdatedDataToSheets] = await compareAndUpdateData(
+      formattedElexData,
+      sheetsData
+    );
+    //delete everything from the sheets
+    await emptyGSheets();
+    await writeElexDataToSheets(addUpdatedDataToSheets);
+
+    //send message to slack
+  } else {
+    await writeElexDataToSheets(dataToAddToTheSheets);
+  }
 })();

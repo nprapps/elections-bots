@@ -1,46 +1,43 @@
-/**
- * 
- * @param {*} dataFromSheets 
-  [{
-    uniqueID: '41902-41',
-    electionDate: undefined,
-    officeID: 'H',
-    stateID: '41',
-    stateName: undefined,
-    raceID: '41902',
-    tabulationStatus: 'Active Tabulation',
-    raceCallStatus: 'Too Early to Call'
-  }]
-* @param {*} dataToAddToSheets
-  [{
-    uniqueID: '41902-41',
-    electionDate: undefined,
-    officeID: 'H',
-    stateID: '41',
-    stateName: undefined,
-    raceID: '41902',
-    tabulationStatus: 'Active Tabulation',
-    raceCallStatus: 'Too Early to Call'
-  }]
- */
-async function compareAndUpdateData(dataToAddToTheSheets, dataFromSheets) {
-  dataFromSheets.map((fromSheets) => {
-    dataToAddToTheSheets.filter((toSheets) => {
-      if (toSheets.uniqueID === fromSheets.uniqueID) {
-        console.log(toSheets, fromSheets);
-        //check for tabulationStatus and raceCallStatus
-        if (toSheets.tabulationStatus !== fromSheets.tabulationStatus) {
-          fromSheets.tabulationStatus === toSheets.tabulationStatus;
-        }
-        if (toSheets.raceCallStatus !== fromSheets.raceCallStatus) {
-          fromSheets.raceCallStatus === toSheets.raceCallStatus;
-        }
-      }
-    });
-  });
-  console.log("-----------------------------");
+const { formatToAddToSheets } = require("../../helpers/formatToAddToSheets");
 
-  console.log({ dataToAddToTheSheets }, dataToAddToTheSheets.length);
+/**
+ * @param {*} formattedElexData
+ * @param {*} dataFromSheets 
+    [{
+      uniqueID: '41902-41',
+      electionDate: undefined,
+      officeID: 'H',
+      stateID: '41',
+      seatName: "",
+      seatNum: "",
+      stateName: undefined,
+      raceID: '41902',
+      tabulationStatus: 'Active Tabulation',
+      raceCallStatus: 'Too Early to Call'
+    }]
+ */
+async function compareAndUpdateData(formattedElexData, dataFromSheets) {
+  const updatedValues = [];
+
+  for (let i = 0; i < formattedElexData.length; i++) {
+    if (
+      formattedElexData[i].tabulationStatus !==
+        dataFromSheets[i].tabulationStatus ||
+      formattedElexData[i].raceCallStatus !== dataFromSheets[i].raceCallStatus
+    ) {
+      dataFromSheets[i].raceCallStatus = formattedElexData[i].raceCallStatus;
+      dataFromSheets[i].tabulationStatus =
+        formattedElexData[i].tabulationStatus;
+
+      updatedValues.push(formattedElexData[i]);
+    }
+  }
+  const addUpdatedDataToSheets = formatToAddToSheets(
+    dataFromSheets,
+    "2024-06-11"
+  );
+
+  return [updatedValues, addUpdatedDataToSheets];
 }
 
 module.exports = {

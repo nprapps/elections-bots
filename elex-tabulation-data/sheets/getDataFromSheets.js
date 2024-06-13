@@ -35,11 +35,13 @@ async function getDataFromSheets() {
           electionDate: v[1],
           officeID: v[2],
           stateID: v[3],
-          stateName: v[4],
-          raceID: v[5],
-          raceType: v[6],
-          tabulationStatus: v[7],
-          raceCallStatus: v[8],
+          seatName: v[4],
+          seatNum: v[5],
+          stateName: v[6],
+          raceID: v[7],
+          raceType: v[8],
+          tabulationStatus: v[9],
+          raceCallStatus: v[10],
         };
 
         values.push(x);

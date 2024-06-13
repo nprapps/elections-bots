@@ -6,6 +6,7 @@ const spreadsheetId = process.env.SHEETS_ID;
 const range = "Sheet1!A4:Z10000";
 const valueInputOption = "USER_ENTERED";
 
+// Format to add to gsheets
 // const values = [
 //   ["Wheel", "$20.50", "4", "3/1/2016"],
 //   ["Door", "$15", "2", "3/15/2016"],

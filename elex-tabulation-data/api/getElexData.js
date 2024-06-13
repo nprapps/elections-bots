@@ -1,61 +1,31 @@
 var axios = require("axios");
-const { getURLFromSheets } = require("../getURLFromSheets");
+const { filterByRace } = require("../../helpers/filterByRace");
+const { formatToAddToSheets } = require("../../helpers/formatToAddToSheets");
+const { formatElexData } = require("../../helpers/formatElexData");
 
 async function getElexData() {
   try {
     //have to connect this B3 column with the calendar to get the latest date
-    const nextURL = await getURLFromSheets();
+    const URL = "https://api.ap.org/v3/elections/2024-06-11?format=JSON";
     const headers = { "x-api-key": process.env.AP_API_KEY };
     const response = await axios({
-      url: nextURL,
+      url: URL,
       headers,
     });
 
-    const dataToAddToTheSheets = [];
-
     const data = response.data;
+
     const electionDate = data.electionDate;
     const raceData = data.races;
-    let values = [];
 
-    const priorityRaces = raceData.filter(
-      (data) =>
-        data.officeID === "P" || data.officeID === "S" || data.officeID === "H"
+    const priorityRaces = filterByRace(raceData);
+    const dataToAddToTheSheets = formatToAddToSheets(
+      priorityRaces,
+      electionDate
     );
+    const formattedElexData = formatElexData(priorityRaces, electionDate);
 
-    priorityRaces.map((race, i) => {
-      let x = {
-        uniqueID: `${race.raceID}-${race.stateID}`,
-        electionDate: electionDate,
-        officeID: race.officeID,
-        stateID: race.stateID,
-        stateName: race.reportingUnits[0].stateName,
-        raceID: race.raceID,
-        raceType: race.raceType,
-        tabulationStatus: race.tabulationStatus,
-        raceCallStatus: race.raceCallStatus,
-      };
-
-      values.push(x);
-    });
-
-    priorityRaces.map((data, i) => {
-      dataToAddToTheSheets.push([
-        `${data.raceID}-${data.stateID}`,
-        electionDate,
-        data.officeID,
-        data.stateID,
-        data.reportingUnits[0].stateName,
-        data.raceID,
-        data.raceType,
-        data.tabulationStatus,
-        data.raceCallStatus,
-      ]);
-    });
-
-    const nextrequest = data.nextrequest;
-
-    return [nextrequest, dataToAddToTheSheets, values];
+    return [formattedElexData, dataToAddToTheSheets];
   } catch (error) {
     console.error(error);
   }
