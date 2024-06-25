@@ -55,7 +55,9 @@ async function compareAndUpdateData(dataFromSheets, elexData) {
         }
       }
     } else {
-      updatedData.push(curVal);
+      if (!ids.includes(uniqueID)) {
+        updatedData.push(curVal);
+      }
     }
   });
 

@@ -8,6 +8,7 @@ function formatElexData(elexData) {
       uniqueID: `${race.raceID}-${race.stateID}`,
       electionDate: electionDate,
       officeID: race.officeID,
+      officeName: race.officeName,
       stateID: race.stateID,
       seatName: race.seatName,
       seatNum: race.seatNum,
