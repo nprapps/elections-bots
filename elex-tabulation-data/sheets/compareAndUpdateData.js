@@ -1,3 +1,4 @@
+const { formatElexData } = require("../../helpers/formatElexData");
 const { formatToAddToSheets } = require("../../helpers/formatToAddToSheets");
 
 /**
@@ -16,29 +17,54 @@ const { formatToAddToSheets } = require("../../helpers/formatToAddToSheets");
       raceCallStatus: 'Too Early to Call'
     }]
  */
-async function compareAndUpdateData(formattedElexData, dataFromSheets) {
-  const updatedValues = [];
+async function compareAndUpdateData(dataFromSheets, elexData) {
+  const formattedElexData = formatElexData(elexData);
 
-  //? Will we ever have a time when we will have less formattedElexData than dataFromSheets?
-  for (let i = 0; i < formattedElexData.length; i++) {
-    if (
-      formattedElexData[i].tabulationStatus !==
-        dataFromSheets[i].tabulationStatus ||
-      formattedElexData[i].raceCallStatus !== dataFromSheets[i].raceCallStatus
-    ) {
-      dataFromSheets[i].raceCallStatus = formattedElexData[i].raceCallStatus;
-      dataFromSheets[i].tabulationStatus =
-        formattedElexData[i].tabulationStatus;
+  const mergedData = dataFromSheets.concat(formattedElexData);
+  const totalLength = mergedData.length;
 
-      updatedValues.push(formattedElexData[i]);
+  const updatedData = [];
+  const messageData = [];
+  const ids = [];
+
+  mergedData.map((curVal, index, arr) => {
+    const uniqueID = curVal.uniqueID;
+    let arryToFindIn =
+      index !== totalLength - 1 ? arr.slice(index + 1) : [arr[totalLength - 1]];
+
+    if (index !== totalLength - 1) {
+      arryToFindIn = arr.slice(index + 1);
+      const match = arryToFindIn.find(
+        (element) => element.uniqueID === uniqueID
+      );
+      if (match) {
+        if (
+          curVal.tabulationStatus !== match.tabulationStatus ||
+          curVal.raceCallStatus !== match.raceCallStatus
+        ) {
+          updatedData.push(match);
+          messageData.push(match);
+          ids.push(match.uniqueID);
+        } else {
+          updatedData.push(curVal);
+          ids.push(curVal.uniqueID);
+        }
+      } else {
+        if (!ids.includes(uniqueID)) {
+          updatedData.push(curVal);
+        }
+      }
+    } else {
+      updatedData.push(curVal);
     }
-  }
+  });
+
   const addUpdatedDataToSheets = formatToAddToSheets(
-    dataFromSheets,
-    "2024-06-11"
+    updatedData,
+    elexData.electionDate
   );
 
-  return [updatedValues, addUpdatedDataToSheets];
+  return [messageData, addUpdatedDataToSheets];
 }
 
 module.exports = {

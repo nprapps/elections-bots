@@ -1,10 +1,11 @@
-function formatToAddToSheets(priorityRaces, electionDate) {
+function formatToAddToSheets(elexData, electionDate) {
+  const raceData = elexData.races ? elexData.races : elexData;
   const dataToAddToTheSheets = [];
 
-  priorityRaces.map((data, i) => {
+  raceData.map((data, i) => {
     dataToAddToTheSheets.push([
       `${data.raceID}-${data.stateID}`,
-      electionDate,
+      data.electionDate ? data.electionDate : electionDate,
       data.officeID,
       data.stateID,
       data.seatName,
