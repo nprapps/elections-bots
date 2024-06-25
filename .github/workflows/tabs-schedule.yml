@@ -1,6 +1,8 @@
 name: AP Tabulation and Race Call Statuses
 
-on: push
+on:  
+  schedule:
+    - cron: "*/15 * * * *"
     
 jobs:
   build-node:
