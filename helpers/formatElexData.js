@@ -1,6 +1,9 @@
-function formatElexData(priorityRaces, electionDate) {
+function formatElexData(elexData) {
+  const electionDate = elexData.electionDate;
+  const raceData = elexData.races;
+
   let values = [];
-  priorityRaces.map((race, i) => {
+  raceData.map((race, i) => {
     let x = {
       uniqueID: `${race.raceID}-${race.stateID}`,
       electionDate: electionDate,

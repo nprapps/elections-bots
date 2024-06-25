@@ -1,12 +1,27 @@
 var axios = require("axios");
-const { filterByRace } = require("../../helpers/filterByRace");
-const { formatToAddToSheets } = require("../../helpers/formatToAddToSheets");
-const { formatElexData } = require("../../helpers/formatElexData");
 
 async function getElexData() {
   try {
-    //have to connect this B3 column with the calendar to get the latest date
-    const URL = "https://api.ap.org/v3/elections/2024-06-11?format=JSON";
+    const electionDates = [
+      "2024-06-18",
+      "2024-06-25",
+      "2024-07-30",
+      "2024-08-01",
+      "2024-08-06",
+      "2024-08-10",
+      "2024-08-13",
+      "2024-08-20",
+      "2024-08-27",
+      "2024-09-03",
+      "2024-09-10",
+      "2024-11-05",
+    ];
+
+    //dynamically update the URL with the dates above
+
+    const URL =
+      "https://api.ap.org/v3/elections/2024-06-25?format=JSON&officeID=D,H,S&uncontested=false";
+    //?"https://api.ap.org/v3/elections/2024-06-04?format=JSON&officeID=D,H,S&uncontested=false";
     const headers = { "x-api-key": process.env.AP_API_KEY };
     const response = await axios({
       url: URL,
@@ -15,17 +30,7 @@ async function getElexData() {
 
     const data = response.data;
 
-    const electionDate = data.electionDate;
-    const raceData = data.races;
-
-    const priorityRaces = filterByRace(raceData);
-    const dataToAddToTheSheets = formatToAddToSheets(
-      priorityRaces,
-      electionDate
-    );
-    const formattedElexData = formatElexData(priorityRaces, electionDate);
-
-    return [formattedElexData, dataToAddToTheSheets];
+    return data;
   } catch (error) {
     console.error(error);
   }

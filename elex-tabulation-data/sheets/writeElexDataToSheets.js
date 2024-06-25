@@ -1,10 +1,5 @@
 require("dotenv").config();
 var { google } = require("googleapis");
-var login = require("@nprapps/google-login");
-
-const spreadsheetId = process.env.SHEETS_ID;
-const range = "Sheet1!A4:Z10000";
-const valueInputOption = "USER_ENTERED";
 
 // Format to add to gsheets
 // const values = [
@@ -14,8 +9,18 @@ const valueInputOption = "USER_ENTERED";
 // ];
 
 async function writeElexDataToSheets(values) {
-  var auth = login.getClient();
-  const sheets = google.sheets({ version: "v4", auth });
+  const GOOGLE_CREDENTIALS = JSON.parse(process.env.GOOGLE_CREDENTIALS);
+
+  const client = new google.auth.GoogleAuth({
+    credentials: GOOGLE_CREDENTIALS,
+    scopes: ["https://www.googleapis.com/auth/spreadsheets"],
+  });
+  const valueInputOption = "USER_ENTERED";
+
+  const sheets = google.sheets({ version: "v4", auth: client });
+
+  const spreadsheetId = process.env.SHEETS_ID;
+  const range = "Sheet1!A4:Z10000";
 
   try {
     const result = await sheets.spreadsheets.values.append({
