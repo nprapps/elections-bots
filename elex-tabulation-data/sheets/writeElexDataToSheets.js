@@ -15,7 +15,7 @@ async function writeElexDataToSheets(values) {
     credentials: GOOGLE_CREDENTIALS,
     scopes: ["https://www.googleapis.com/auth/spreadsheets"],
   });
-  const valueInputOption = "USER_ENTERED";
+  const valueInputOption = "RAW";
 
   const sheets = google.sheets({ version: "v4", auth: client });
 
