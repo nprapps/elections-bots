@@ -5,6 +5,7 @@ const { getElexData } = require("./api/getElexData");
 const { emptyGSheets } = require("./sheets/emptyGSheets");
 const { sendMessageToSlack } = require("./slack/sendMessageToSlack");
 const { formatToAddToSheets } = require("../helpers/formatToAddToSheets");
+const { formatMessage } = require("./slack/formatMessage");
 
 (async function () {
   const elexData = await getElexData();
@@ -23,8 +24,8 @@ const { formatToAddToSheets } = require("../helpers/formatToAddToSheets");
 
     // ? send message to slack
     if (messageData.length > 0) {
-      console.log({ messageData });
-      await sendMessageToSlack(messageData);
+      const message = await formatMessage(messageData);
+      sendMessageToSlack(message);
     }
   } else {
     const dataToAddToTheSheets = formatToAddToSheets(

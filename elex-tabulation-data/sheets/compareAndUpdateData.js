@@ -42,6 +42,9 @@ async function compareAndUpdateData(dataFromSheets, elexData) {
           curVal.tabulationStatus !== match.tabulationStatus ||
           curVal.raceCallStatus !== match.raceCallStatus
         ) {
+          match.tabulationChange =
+            curVal.tabulationStatus !== match.tabulationStatus;
+          match.raceCallChange = curVal.raceCallStatus !== match.raceCallStatus;
           updatedData.push(match);
           messageData.push(match);
           ids.push(match.uniqueID);

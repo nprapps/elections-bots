@@ -31,14 +31,9 @@ require("dotenv").config();
 // }];
  */
 
-async function sendMessageToSlack(data) {
+async function sendMessageToSlack(message) {
   const channelID = "C06TYKYGGM9";
   const web = new WebClient(process.env.SLACK_TOKEN);
-
-  let message = "Tabulation status for following races have changed: \n";
-  data.map((text) => {
-    message += `- ${text.stateName}'s ${text.officeName} race for ${text.seatName}: Tabulation Status is *${text.tabulationStatus}* and Race Call status is *${text.raceCallStatus}*  \n`;
-  });
 
   try {
     await web.chat.postMessage({
