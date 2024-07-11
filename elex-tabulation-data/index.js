@@ -3,7 +3,6 @@ const { getDataFromSheets } = require("./sheets/getDataFromSheets");
 const { compareAndUpdateData } = require("./sheets/compareAndUpdateData");
 const { getElexData } = require("./api/getElexData");
 const { emptyGSheets } = require("./sheets/emptyGSheets");
-const { sendMessageToSlack } = require("./slack/sendMessageToSlack");
 const { formatToAddToSheets } = require("../helpers/formatToAddToSheets");
 const { formatMessage } = require("./slack/formatMessage");
 
@@ -24,8 +23,7 @@ const { formatMessage } = require("./slack/formatMessage");
 
     // ? send message to slack
     if (messageData.length > 0) {
-      const message = await formatMessage(messageData);
-      sendMessageToSlack(message);
+      await formatMessage(messageData);
     }
   } else {
     const dataToAddToTheSheets = formatToAddToSheets(

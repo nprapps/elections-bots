@@ -1,12 +1,12 @@
 function getEmoji(party) {
-  if (party === "DEM") {
-    return ":blue_circle:";
+  if (party.toLowerCase() === "DEM".toLowerCase()) {
+    return ":large_blue_circle:";
   }
-  if (party === "GOP") {
+  if (party.toLowerCase() === "GOP".toLowerCase()) {
     return ":red_circle:";
   }
-  if (party === "Ind") {
-    return ":green_circle:";
+  if (party.toLowerCase() === "Ind".toLowerCase()) {
+    return ":large_green_circle:";
   }
 }
 

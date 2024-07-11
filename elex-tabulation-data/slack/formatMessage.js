@@ -1,325 +1,284 @@
 const { whoIsLeading } = require("../../helpers/whoIsLeading");
-const { slackMessage } = require("./slackMessage");
+const { getMessage } = require("./getMessage");
 const { getEmoji } = require("./getEmoji");
 
-//? test candidates
-const races = [
-  {
-    uniqueID: "6243-6",
-    officeID: "H",
-    officeName: "U.S. House",
-    seatName: "District 4",
-    seatNum: "4",
-    statePostal: "CO",
-    stateName: "Colorado",
-    raceID: "6243",
-    raceType: "Primary",
-    tabulationStatus: "Tabulation Paused",
-    raceCallStatus: "Called",
-    candidates: [
-      {
-        first: "Trisha",
-        last: "Calvarese",
-        party: "Dem",
-        voteCount: 22437,
-      },
-      {
-        first: "Ike",
-        last: "McCorkle",
-        party: "Dem",
-        voteCount: 20441,
-      },
-    ],
-
-    tabulationChange: true,
-    raceCallChange: false,
-  },
-  {
-    uniqueID: "6485-6",
-    electionDate: "2024-06-25",
-    officeID: "H",
-    officeName: "U.S. House",
-    stateID: "6",
-    seatName: "District 3",
-    seatNum: "3",
-    stateName: "Texas",
-    statePostal: "TX",
-    raceID: "6485",
-    raceType: "Primary",
-    tabulationStatus: "Tabulation Paused",
-    raceCallStatus: "Called",
-    candidates: [
-      {
-        first: "Jeff",
-        last: "Hurd",
-        party: "GOP",
-        candidateID: "164158",
-        ballotOrder: 6,
-        polID: "164158",
-        polNum: "164158",
-        voteCount: 36238,
-        winner: "X",
-        winnerDateTime: "2024-06-26T02:11:22.709Z",
-      },
-      {
-        first: "Ron",
-        last: "Hanks",
-        party: "GOP",
-        voteCount: 24977,
-      },
-    ],
-    tabulationChange: true,
-    raceCallChange: false,
-  },
-  {
-    uniqueID: "6486-6",
-    electionDate: "2024-06-25",
-    officeID: "H",
-    officeName: "U.S. House",
-    stateID: "6",
-    seatName: "District 4",
-    seatNum: "4",
-    stateName: "California",
-    statePostal: "CA",
-    raceID: "6486",
-    raceType: "Primary",
-    tabulationStatus: "Tabulation Paused",
-    raceCallStatus: "Called",
-    candidates: [
-      {
-        first: "Lauren",
-        last: "Boebert",
-        party: "GOP",
-        voteCount: 53573,
-        winner: "X",
-        winnerDateTime: "2024-06-26T01:22:04.103Z",
-      },
-      {
-        first: "Jerry",
-        last: "Sonnenberg",
-        party: "GOP",
-        voteCount: 17571,
-      },
-    ],
-    tabulationChange: true,
-    raceCallChange: false,
-  },
-  {
-    uniqueID: "6487-6",
-    electionDate: "2024-06-25",
-    officeID: "H",
-    officeName: "U.S. House",
-    stateID: "6",
-    seatName: "District 5",
-    seatNum: "5",
-    statePostal: "CO",
-    stateName: "Colorado",
-    raceID: "6487",
-    raceType: "Primary",
-    tabulationStatus: "Tabulation Paused",
-    raceCallStatus: "Called",
-    candidates: [
-      {
-        first: "Jeff",
-        last: "Crank",
-        party: "GOP",
-        voteCount: 56437,
-        winner: "X",
-        winnerDateTime: "2024-06-26T02:01:26.612Z",
-      },
-      {
-        first: "Dave",
-        middle: "L.",
-        last: "Williams",
-        party: "GOP",
-        voteCount: 30101,
-      },
-    ],
-    tabulationChange: true,
-    raceCallChange: false,
-  },
-  {
-    uniqueID: "6722-6",
-    electionDate: "2024-06-25",
-    officeID: "H",
-    officeName: "U.S. House",
-    stateID: "6",
-    seatName: "District 12",
-    seatNum: "12",
-    statePostal: "CO",
-    stateName: "Colorado",
-    raceID: "6722",
-    raceType: "Primary",
-    tabulationStatus: "Active Tabulation",
-    raceCallStatus: "Called",
-    candidates: [
-      {
-        first: "River",
-        last: "Gassen",
-        party: "Dem",
-        voteCount: 20717,
-      },
-      {
-        first: "Joe",
-        last: "Reagan",
-        party: "Dem",
-        voteCount: 20235,
-      },
-    ],
-    tabulationChange: true,
-    raceCallChange: false,
-  },
-  {
-    uniqueID: "29858-5",
-    officeID: "P",
-    officeName: "President",
-    stateID: "6",
-    seatName: "District 5",
-    seatNum: "1",
-    statePostal: "NY",
-    stateName: "New York",
-    raceID: "6722",
-    raceType: "Primary",
-    tabulationStatus: "Active Tabulation",
-    raceCallStatus: "Too Close to Call",
-    candidates: [
-      {
-        first: "River",
-        last: "Gassen",
-        party: "Dem",
-        voteCount: 20717,
-      },
-      {
-        first: "Joe",
-        last: "Reagan",
-        party: "Dem",
-        voteCount: 20235,
-      },
-    ],
-    tabulationChange: true,
-    raceCallChange: false,
-  },
-];
+const RECENTLYCALLED = "Recently called";
+const ACTIVETABULATION = "Now in active tabulation";
+const TOOCLOSE = "Too close to call, per AP";
+const UNABLETOCALL = "AP is unable to call";
+const RANKEDCHOICE = "Awaiting ranked choice results";
+const RUNOFF = "Going to a runoff";
+const UNCALLED = "AP HAS UNCALLED THESE RACES";
 
 function formatMessage(races) {
-  const message = {
-    "Recently called": [],
-    "Now in active tabulation": { President: [], Senate: [], House: [] },
-    "Too Close to Call": { President: [], Senate: [], House: [] },
-    "Unable to Call": { President: [], Senate: [], House: [] },
-    "Awaiting Ranked Choice Results": { President: [], Senate: [], House: [] },
-    Runoff: { President: [], Senate: [], House: [] },
-  };
+  const recentlyCalled = {};
+  const activetabulation = {};
+  const tooClose = {};
+  const unableToCall = {};
+  const rankedChoice = {};
+  const runoff = {};
+  const uncalled = {};
 
-  races.map((race) => {
+  races.map((race, i) => {
     const winner = whoIsLeading(race.candidates);
     const leadingCandidate = winner.name;
     const isLeadingCandidateTheWinner = winner.winner;
 
     if (isLeadingCandidateTheWinner) {
-      message["Recently called"].push(
-        `   • ${race.officeName} : ${race.statePostal} (${getEmoji(
-          winner.party
-        )} ${leadingCandidate} - ${winner.party})`
-      );
+      if (race.officeID === "H") {
+        if (!recentlyCalled["House"]) {
+          recentlyCalled["House"] = [
+            ` ${race.statePostal}  ( ${leadingCandidate} - ${winner.party})`,
+          ];
+        } else {
+          recentlyCalled["House"].push(
+            ` ${race.statePostal}  ( ${leadingCandidate} - ${winner.party})`
+          );
+        }
+      }
+
+      if (race.officeID === "S") {
+        if (!recentlyCalled["Senate"]) {
+          recentlyCalled["Senate"] = [
+            ` ${race.statePostal}  ( ${leadingCandidate} - ${winner.party})`,
+          ];
+        } else {
+          recentlyCalled["Senate"].push(
+            ` ${race.statePostal}  ( ${leadingCandidate} - ${winner.party})`
+          );
+        }
+      }
+
+      if (race.officeID === "P") {
+        if (!recentlyCalled["President"]) {
+          recentlyCalled["President"] = [
+            ` ${race.statePostal}  ( ${leadingCandidate} - ${winner.party})`,
+          ];
+        } else {
+          recentlyCalled["President"].push(
+            ` ${race.statePostal}  ( ${leadingCandidate} - ${winner.party})`
+          );
+        }
+      }
     } else if (race.raceCallStatus === "Too Close to Call") {
       if (race.officeID === "H") {
-        message["Too Close to Call"]["House"].push(
-          `${race.officeName}: ${race.statePostal} (${race.activeTabulation})`
-        );
+        if (!tooClose["House"]) {
+          tooClose["House"] = [
+            ` ${race.statePostal} (${race.tabulationStatus})`,
+          ];
+        } else {
+          tooClose["House"].push(
+            ` ${race.statePostal} (${race.tabulationStatus})`
+          );
+        }
       }
+
       if (race.officeID === "S") {
-        message["Too Close to Call"]["Senate"].push(
-          `${race.officeName}: ${race.statePostal} (${race.tabulationStatus})`
-        );
+        if (!tooClose["Senate"]) {
+          tooClose["Senate"] = [
+            ` ${race.statePostal} (${race.tabulationStatus})`,
+          ];
+        } else {
+          tooClose["Senate"].push(
+            ` ${race.statePostal} (${race.tabulationStatus})`
+          );
+        }
       }
+
       if (race.officeID === "P") {
-        message["Too Close to Call"]["President"].push(
-          `${race.officeName}: ${race.statePostal} (${race.tabulationStatus})`
-        );
+        if (!tooClose["President"]) {
+          tooClose["President"] = [
+            ` ${race.statePostal} (${race.tabulationStatus})`,
+          ];
+        } else {
+          tooClose["President"].push(
+            ` ${race.statePostal} (${race.tabulationStatus})`
+          );
+        }
       }
     } else if (race.raceCallStatus === "Unable to Call") {
       if (race.officeID === "H") {
-        message["Unable to Call"]["House"].push(
-          `${race.officeName}: ${race.statePostal} (${race.activeTabulation})`
-        );
+        if (!unableToCall["House"]) {
+          unableToCall["House"] = [
+            ` ${race.statePostal} (${race.tabulationStatus})`,
+          ];
+        } else {
+          unableToCall["House"].push(
+            ` ${race.statePostal} (${race.tabulationStatus})`
+          );
+        }
       }
       if (race.officeID === "S") {
-        message["Unable to Call"]["Senate"].push(
-          `${race.officeName}: ${race.statePostal} (${race.tabulationStatus})`
-        );
+        if (!unableToCall["Senate"]) {
+          unableToCall["Senate"] = [
+            ` ${race.statePostal} (${race.tabulationStatus})`,
+          ];
+        } else {
+          unableToCall["Senate"].push(
+            ` ${race.statePostal} (${race.tabulationStatus})`
+          );
+        }
       }
       if (race.officeID === "P") {
-        message["Unable to Call"]["President"].push(
-          `${race.officeName}: ${race.statePostal} (${race.tabulationStatus})`
-        );
+        if (!unableToCall["President"]) {
+          unableToCall["President"] = [
+            ` ${race.statePostal} (${race.tabulationStatus})`,
+          ];
+        } else {
+          unableToCall["President"].push(
+            ` ${race.statePostal} (${race.tabulationStatus})`
+          );
+        }
       }
     } else if (race.raceCallStatus === "Awaiting Ranked Choice Results") {
       if (race.officeID === "H") {
-        message["Awaiting Ranked Choice Results"]["House"].push(
-          `${race.officeName}: ${race.statePostal} (${race.activeTabulation})`
-        );
+        if (!rankedChoice["House"]) {
+          rankedChoice["House"] = [
+            ` ${race.statePostal} (${race.tabulationStatus})`,
+          ];
+        } else {
+          rankedChoice["House"].push(
+            ` ${race.statePostal} (${race.tabulationStatus})`
+          );
+        }
       }
       if (race.officeID === "S") {
-        message["Awaiting Ranked Choice Results"]["Senate"].push(
-          `${race.officeName}: ${race.statePostal} (${race.tabulationStatus})`
-        );
+        if (!rankedChoice["Senate"]) {
+          rankedChoice["Senate"] = [
+            ` ${race.statePostal} (${race.tabulationStatus})`,
+          ];
+        } else {
+          rankedChoice["Senate"].push(
+            ` ${race.statePostal} (${race.tabulationStatus})`
+          );
+        }
       }
       if (race.officeID === "P") {
-        message["Awaiting Ranked Choice Results"]["President"].push(
-          `${race.officeName}: ${race.statePostal} (${race.tabulationStatus})`
-        );
+        if (!rankedChoice["President"]) {
+          rankedChoice["President"] = [
+            ` ${race.statePostal} (${race.tabulationStatus})`,
+          ];
+        } else {
+          rankedChoice["President"].push(
+            ` ${race.statePostal} (${race.tabulationStatus})`
+          );
+        }
       }
     } else if (race.raceCallStatus === "Runoff") {
       if (race.officeID === "H") {
-        message["Runoff"]["House"].push(
-          `${race.officeName}: ${race.statePostal} (${race.activeTabulation})`
-        );
+        if (!runoff["House"]) {
+          runoff["House"] = [` ${race.statePostal} (${race.tabulationStatus})`];
+        } else {
+          runoff["House"].push(
+            ` ${race.statePostal} (${race.tabulationStatus})`
+          );
+        }
       }
       if (race.officeID === "S") {
-        message["Runoff"]["Senate"].push(
-          `${race.officeName}: ${race.statePostal} (${race.tabulationStatus})`
-        );
+        if (!runoff["Senate"]) {
+          runoff["Senate"] = [
+            ` ${race.statePostal} (${race.tabulationStatus})`,
+          ];
+        } else {
+          runoff["Senate"].push(
+            ` ${race.statePostal} (${race.tabulationStatus})`
+          );
+        }
       }
       if (race.officeID === "P") {
-        message["Runoff"]["President"].push(
-          `${race.officeName}: ${race.statePostal} (${race.tabulationStatus})`
-        );
+        if (!runoff["President"]) {
+          runoff["President"] = [
+            ` ${race.statePostal} (${race.tabulationStatus})`,
+          ];
+        } else {
+          runoff["President"].push(
+            ` ${race.statePostal} (${race.tabulationStatus})`
+          );
+        }
       }
     } else if (race.raceCallStatus === "Uncalled") {
       if (race.officeID === "H") {
-        message["Uncalled"]["House"].push(
-          `${race.officeName}: ${race.statePostal} (${race.activeTabulation})`
-        );
+        if (!uncalled["House"]) {
+          uncalled["House"] = [
+            ` ${race.statePostal} (${race.tabulationStatus})`,
+          ];
+        } else {
+          uncalled["House"].push(
+            ` ${race.statePostal} (${race.tabulationStatus})`
+          );
+        }
       }
       if (race.officeID === "S") {
-        message["Uncalled"]["Senate"].push(
-          `${race.officeName}: ${race.statePostal} (${race.tabulationStatus})`
-        );
+        if (!uncalled["Senate"]) {
+          uncalled["Senate"] = [
+            ` ${race.statePostal} (${race.tabulationStatus})`,
+          ];
+        } else {
+          uncalled["Senate"].push(
+            ` ${race.statePostal} (${race.tabulationStatus})`
+          );
+        }
       }
       if (race.officeID === "P") {
-        message["Uncalled"]["President"].push(
-          `${race.officeName}: ${race.statePostal} (${race.tabulationStatus})`
-        );
+        if (!uncalled["President"]) {
+          uncalled["President"] = [
+            ` ${race.statePostal} (${race.tabulationStatus})`,
+          ];
+        } else {
+          uncalled["President"].push(
+            ` ${race.statePostal} (${race.tabulationStatus})`
+          );
+        }
       }
     } else if (
       !isLeadingCandidateTheWinner &&
       race.tabulationStatus === "Active Tabulation"
     ) {
       if (race.officeID === "H") {
-        message["Now in active tabulation"]["House"].push(
-          `${race.statePostal}-${race.seatNum}`
-        );
+        if (!activetabulation["House"]) {
+          activetabulation["House"] = [`${race.statePostal}-${race.seatNum}`];
+        } else {
+          activetabulation["House"].push(`${race.statePostal}-${race.seatNum}`);
+        }
       }
       if (race.officeID === "S") {
-        message["Now in active tabulation"]["Senate"].push(
-          `${race.statePostal}-${race.seatNum}`
-        );
+        if (!activetabulation["Senate"]) {
+          activetabulation["Senate"] = [`${race.statePostal}-${race.seatNum}`];
+        } else {
+          activetabulation["Senate"].push(
+            `${race.statePostal}-${race.seatNum}`
+          );
+        }
+      }
+      if (race.officeID === "P") {
+        if (!activetabulation["President"]) {
+          activetabulation["President"] = [
+            `${race.statePostal}-${race.seatNum}`,
+          ];
+        } else {
+          activetabulation["President"].push(
+            `${race.statePostal}-${race.seatNum}`
+          );
+        }
       }
     }
   });
 
-  slackMessage(message);
+  Object.keys(recentlyCalled).length
+    ? getMessage(recentlyCalled, RECENTLYCALLED)
+    : "";
+  Object.keys(activetabulation).length
+    ? getMessage(activetabulation, ACTIVETABULATION, "compact")
+    : "";
+  Object.keys(tooClose).length ? getMessage(tooClose, TOOCLOSE) : "";
+  Object.keys(unableToCall).length
+    ? getMessage(unableToCall, UNABLETOCALL)
+    : "";
+  Object.keys(rankedChoice).length
+    ? getMessage(rankedChoice, RANKEDCHOICE)
+    : "";
+  Object.keys(runoff).length ? getMessage(runoff, RUNOFF) : "";
+  Object.keys(uncalled).length ? getMessage(uncalled, UNCALLED) : "";
 }
 
 module.exports = {

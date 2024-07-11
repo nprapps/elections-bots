@@ -40,7 +40,8 @@ async function sendMessageToSlack(message) {
       channel: channelID,
       unfurl_links: false,
       unfurl_media: false,
-      text: message,
+      text: "text",
+      blocks: message,
     });
 
     console.log("Message has been posted");

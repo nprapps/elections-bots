@@ -39,9 +39,6 @@ async function compareTime(elexTestData) {
   };
 
   const todaysTests = getTodaysTests(elexTestData);
-
-  console.log({ todaysTests });
-
   const currentTime = new Date();
 
   const messagesToSend = [];
@@ -57,12 +54,6 @@ async function compareTime(elexTestData) {
       let testingTime = new Date(`${date} ${startTestingTime}`);
 
       const timeDiff = diff_minutes(currentTime, testingTime);
-
-      console.log({ currentTime });
-      console.log({ startTestingTime });
-      console.log({ testingTime });
-      console.log({ timeDiff });
-      console.log("-------");
 
       if (timeDiff >= 220 && timeDiff <= 245) {
         messagesToSend.push(data);
