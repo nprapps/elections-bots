@@ -18,6 +18,7 @@ function formatElexData(elexData) {
       tabulationStatus: race.tabulationStatus,
       raceCallStatus: race.raceCallStatus,
       candidates: race.reportingUnits[0].candidates,
+      statePostal: race.reportingUnits[0].statePostal,
     };
 
     values.push(x);

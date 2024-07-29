@@ -8,7 +8,6 @@ function diff_minutes(currentTime, testingTime) {
   diff /= 60;
   // Return the absolute value of the rounded difference in minutes
 
-  console.log(Math.round(diff));
   return Math.round(diff);
 }
 
