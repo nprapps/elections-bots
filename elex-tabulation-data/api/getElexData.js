@@ -20,7 +20,7 @@ async function getElexData() {
     //dynamically update the URL with the dates above
 
     const URL =
-      "https://api.ap.org/v3/elections/2024-08-10?format=JSON&officeID=D,H,S&uncontested=false";
+      "https://api.ap.org/v3/elections/2024-08-13?format=JSON&officeID=D,H,S&uncontested=false";
     //?"https://api.ap.org/v3/elections/2024-06-04?format=JSON&officeID=D,H,S&uncontested=false";
     const headers = { "x-api-key": process.env.AP_API_KEY };
     const response = await axios({
