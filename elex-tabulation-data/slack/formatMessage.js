@@ -28,11 +28,15 @@ function formatMessage(races) {
       if (race.officeID === "H") {
         if (!recentlyCalled["House"]) {
           recentlyCalled["House"] = [
-            ` ${race.statePostal}  ( ${leadingCandidate} - ${winner.party})`,
+            ` ${race.statePostal}${
+              race.seatNum ? -race.seatNum : ""
+            }  ( ${leadingCandidate} - ${winner.party})`,
           ];
         } else {
           recentlyCalled["House"].push(
-            ` ${race.statePostal}  ( ${leadingCandidate} - ${winner.party})`
+            ` ${race.statePostal}${
+              race.seatNum ? -race.seatNum : ""
+            }  ( ${leadingCandidate} - ${winner.party})`
           );
         }
       }
@@ -40,11 +44,15 @@ function formatMessage(races) {
       if (race.officeID === "S") {
         if (!recentlyCalled["Senate"]) {
           recentlyCalled["Senate"] = [
-            ` ${race.statePostal}  ( ${leadingCandidate} - ${winner.party})`,
+            ` ${race.statePostal}${
+              race.seatNum ? -race.seatNum : ""
+            }  ( ${leadingCandidate} - ${winner.party})`,
           ];
         } else {
           recentlyCalled["Senate"].push(
-            ` ${race.statePostal}  ( ${leadingCandidate} - ${winner.party})`
+            ` ${race.statePostal}${
+              race.seatNum ? -race.seatNum : ""
+            }  ( ${leadingCandidate} - ${winner.party})`
           );
         }
       }
@@ -52,11 +60,15 @@ function formatMessage(races) {
       if (race.officeID === "P") {
         if (!recentlyCalled["President"]) {
           recentlyCalled["President"] = [
-            ` ${race.statePostal}  ( ${leadingCandidate} - ${winner.party})`,
+            ` ${race.statePostal}${
+              race.seatNum ? -race.seatNum : ""
+            }  ( ${leadingCandidate} - ${winner.party})`,
           ];
         } else {
           recentlyCalled["President"].push(
-            ` ${race.statePostal}  ( ${leadingCandidate} - ${winner.party})`
+            ` ${race.statePostal}${
+              race.seatNum ? -race.seatNum : ""
+            }  ( ${leadingCandidate} - ${winner.party})`
           );
         }
       }
@@ -64,11 +76,15 @@ function formatMessage(races) {
       if (race.officeID === "H") {
         if (!tooClose["House"]) {
           tooClose["House"] = [
-            ` ${race.statePostal} (${race.tabulationStatus})`,
+            ` ${race.statePostal}${race.seatNum ? -race.seatNum : ""} (${
+              race.tabulationStatus
+            })`,
           ];
         } else {
           tooClose["House"].push(
-            ` ${race.statePostal} (${race.tabulationStatus})`
+            ` ${race.statePostal}${race.seatNum ? -race.seatNum : ""} (${
+              race.tabulationStatus
+            })`
           );
         }
       }
@@ -76,11 +92,15 @@ function formatMessage(races) {
       if (race.officeID === "S") {
         if (!tooClose["Senate"]) {
           tooClose["Senate"] = [
-            ` ${race.statePostal} (${race.tabulationStatus})`,
+            ` ${race.statePostal}${race.seatNum ? -race.seatNum : ""} (${
+              race.tabulationStatus
+            })`,
           ];
         } else {
           tooClose["Senate"].push(
-            ` ${race.statePostal} (${race.tabulationStatus})`
+            ` ${race.statePostal}${race.seatNum ? -race.seatNum : ""}  (${
+              race.tabulationStatus
+            })`
           );
         }
       }
@@ -88,11 +108,15 @@ function formatMessage(races) {
       if (race.officeID === "P") {
         if (!tooClose["President"]) {
           tooClose["President"] = [
-            ` ${race.statePostal} (${race.tabulationStatus})`,
+            ` ${race.statePostal}${race.seatNum ? -race.seatNum : ""}  (${
+              race.tabulationStatus
+            })`,
           ];
         } else {
           tooClose["President"].push(
-            ` ${race.statePostal} (${race.tabulationStatus})`
+            ` ${race.statePostal}${race.seatNum ? -race.seatNum : ""} (${
+              race.tabulationStatus
+            })`
           );
         }
       }
@@ -100,33 +124,45 @@ function formatMessage(races) {
       if (race.officeID === "H") {
         if (!unableToCall["House"]) {
           unableToCall["House"] = [
-            ` ${race.statePostal} (${race.tabulationStatus})`,
+            ` ${race.statePostal}${race.seatNum ? -race.seatNum : ""} (${
+              race.tabulationStatus
+            })`,
           ];
         } else {
           unableToCall["House"].push(
-            ` ${race.statePostal} (${race.tabulationStatus})`
+            ` ${race.statePostal}${race.seatNum ? -race.seatNum : ""} (${
+              race.tabulationStatus
+            })`
           );
         }
       }
       if (race.officeID === "S") {
         if (!unableToCall["Senate"]) {
           unableToCall["Senate"] = [
-            ` ${race.statePostal} (${race.tabulationStatus})`,
+            ` ${race.statePostal}${race.seatNum ? -race.seatNum : ""} (${
+              race.tabulationStatus
+            })`,
           ];
         } else {
           unableToCall["Senate"].push(
-            ` ${race.statePostal} (${race.tabulationStatus})`
+            ` ${race.statePostal}${race.seatNum ? -race.seatNum : ""}  (${
+              race.tabulationStatus
+            })`
           );
         }
       }
       if (race.officeID === "P") {
         if (!unableToCall["President"]) {
           unableToCall["President"] = [
-            ` ${race.statePostal} (${race.tabulationStatus})`,
+            ` ${race.statePostal}${race.seatNum ? -race.seatNum : ""} (${
+              race.tabulationStatus
+            })`,
           ];
         } else {
           unableToCall["President"].push(
-            ` ${race.statePostal} (${race.tabulationStatus})`
+            ` ${race.statePostal}${race.seatNum ? -race.seatNum : ""}  (${
+              race.tabulationStatus
+            })`
           );
         }
       }
@@ -134,65 +170,91 @@ function formatMessage(races) {
       if (race.officeID === "H") {
         if (!rankedChoice["House"]) {
           rankedChoice["House"] = [
-            ` ${race.statePostal} (${race.tabulationStatus})`,
+            ` ${race.statePostal}${race.seatNum ? -race.seatNum : ""}  (${
+              race.tabulationStatus
+            })`,
           ];
         } else {
           rankedChoice["House"].push(
-            ` ${race.statePostal} (${race.tabulationStatus})`
+            ` ${race.statePostal}${race.seatNum ? -race.seatNum : ""} (${
+              race.tabulationStatus
+            })`
           );
         }
       }
       if (race.officeID === "S") {
         if (!rankedChoice["Senate"]) {
           rankedChoice["Senate"] = [
-            ` ${race.statePostal} (${race.tabulationStatus})`,
+            ` ${race.statePostal}${race.seatNum ? -race.seatNum : ""} (${
+              race.tabulationStatus
+            })`,
           ];
         } else {
           rankedChoice["Senate"].push(
-            ` ${race.statePostal} (${race.tabulationStatus})`
+            ` ${race.statePostal}${race.seatNum ? -race.seatNum : ""} (${
+              race.tabulationStatus
+            })`
           );
         }
       }
       if (race.officeID === "P") {
         if (!rankedChoice["President"]) {
           rankedChoice["President"] = [
-            ` ${race.statePostal} (${race.tabulationStatus})`,
+            ` ${race.statePostal}${race.seatNum ? -race.seatNum : ""} (${
+              race.tabulationStatus
+            })`,
           ];
         } else {
           rankedChoice["President"].push(
-            ` ${race.statePostal} (${race.tabulationStatus})`
+            ` ${race.statePostal}${race.seatNum ? -race.seatNum : ""} (${
+              race.tabulationStatus
+            })`
           );
         }
       }
     } else if (race.raceCallStatus === "Runoff") {
       if (race.officeID === "H") {
         if (!runoff["House"]) {
-          runoff["House"] = [` ${race.statePostal} (${race.tabulationStatus})`];
+          runoff["House"] = [
+            ` ${race.statePostal}${race.seatNum ? -race.seatNum : ""}  (${
+              race.tabulationStatus
+            })`,
+          ];
         } else {
           runoff["House"].push(
-            ` ${race.statePostal} (${race.tabulationStatus})`
+            ` ${race.statePostal}${race.seatNum ? -race.seatNum : ""} (${
+              race.tabulationStatus
+            })`
           );
         }
       }
       if (race.officeID === "S") {
         if (!runoff["Senate"]) {
           runoff["Senate"] = [
-            ` ${race.statePostal} (${race.tabulationStatus})`,
+            ` ${race.statePostal}${race.seatNum ? -race.seatNum : ""} (${
+              race.tabulationStatus
+            })`,
           ];
         } else {
           runoff["Senate"].push(
-            ` ${race.statePostal} (${race.tabulationStatus})`
+            ` ${race.statePostal}${race.seatNum ? -race.seatNum : ""} (${
+              race.tabulationStatus
+            })`
           );
         }
       }
       if (race.officeID === "P") {
         if (!runoff["President"]) {
           runoff["President"] = [
-            ` ${race.statePostal} (${race.tabulationStatus})`,
+            ` ${race.statePostal}${race.seatNum ? -race.seatNum : ""} (${
+              race.tabulationStatus
+            })`,
           ];
         } else {
           runoff["President"].push(
-            ` ${race.statePostal} (${race.tabulationStatus})`
+            ` ${race.statePostal}${race.seatNum ? -race.seatNum : ""} (${
+              race.tabulationStatus
+            })`
           );
         }
       }
@@ -200,33 +262,45 @@ function formatMessage(races) {
       if (race.officeID === "H") {
         if (!uncalled["House"]) {
           uncalled["House"] = [
-            ` ${race.statePostal} (${race.tabulationStatus})`,
+            ` ${race.statePostal}${race.seatNum ? -race.seatNum : ""} (${
+              race.tabulationStatus
+            })`,
           ];
         } else {
           uncalled["House"].push(
-            ` ${race.statePostal} (${race.tabulationStatus})`
+            ` ${race.statePostal}${race.seatNum ? -race.seatNum : ""} (${
+              race.tabulationStatus
+            })`
           );
         }
       }
       if (race.officeID === "S") {
         if (!uncalled["Senate"]) {
           uncalled["Senate"] = [
-            ` ${race.statePostal} (${race.tabulationStatus})`,
+            ` ${race.statePostal}${race.seatNum ? -race.seatNum : ""} (${
+              race.tabulationStatus
+            })`,
           ];
         } else {
           uncalled["Senate"].push(
-            ` ${race.statePostal} (${race.tabulationStatus})`
+            ` ${race.statePostal}${race.seatNum ? -race.seatNum : ""}  (${
+              race.tabulationStatus
+            })`
           );
         }
       }
       if (race.officeID === "P") {
         if (!uncalled["President"]) {
           uncalled["President"] = [
-            ` ${race.statePostal} (${race.tabulationStatus})`,
+            ` ${race.statePostal}${race.seatNum ? -race.seatNum : ""} (${
+              race.tabulationStatus
+            })`,
           ];
         } else {
           uncalled["President"].push(
-            ` ${race.statePostal} (${race.tabulationStatus})`
+            ` ${race.statePostal}${race.seatNum ? -race.seatNum : ""} (${
+              race.tabulationStatus
+            })`
           );
         }
       }
