@@ -20,7 +20,7 @@ jobs:
           GOOGLE_CREDENTIALS: ${{secrets.GOOGLE_CREDENTIALS}}
         run: |
           shouldRunEndpoint=$(node elex-tabulation-data/main.js)
-          echo ""::set-output name=bool::$shouldRunEndpoint"
+          echo "::set-output name=bool::$shouldRunEndpoint"
 
 # Do I hve to checkout and install again?
   job2:
