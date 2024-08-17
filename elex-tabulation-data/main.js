@@ -1,5 +1,5 @@
 async function main() {
-  return TRUE;
+  return true;
 }
 
 main();
