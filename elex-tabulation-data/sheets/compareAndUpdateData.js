@@ -18,7 +18,7 @@ const { formatToAddToSheets } = require("../../helpers/formatToAddToSheets");
     }]
  */
 async function compareAndUpdateData(dataFromSheets, elexData) {
-  const formattedElexData = formatElexData(elexData);
+  const formattedElexData = formatElexData(elexData.flat());
 
   const mergedData = dataFromSheets.concat(formattedElexData);
   const totalLength = mergedData.length;
@@ -37,9 +37,11 @@ async function compareAndUpdateData(dataFromSheets, elexData) {
       const match = arryToFindIn.find(
         (element) => element.uniqueID === uniqueID
       );
+
       if (match) {
         if (
-          curVal.tabulationStatus !== match.tabulationStatus ||
+          (curVal.tabulationStatus !== match.tabulationStatus &&
+            match.tabulationStatus !== "Vote Certified") ||
           curVal.raceCallStatus !== match.raceCallStatus
         ) {
           match.tabulationChange =

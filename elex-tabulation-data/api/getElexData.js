@@ -1,36 +1,29 @@
-var axios = require("axios");
-
-async function getElexData() {
+async function getElexData(endpointsToRun) {
   try {
-    const electionDates = [
-      "2024-06-18",
-      "2024-06-25",
-      "2024-07-30",
-      "2024-08-01",
-      "2024-08-06",
-      "2024-08-10",
-      "2024-08-13",
-      "2024-08-20",
-      "2024-08-27",
-      "2024-09-03",
-      "2024-09-10",
-      "2024-11-05",
-    ];
+    let requestsArray = endpointsToRun.map((endpoint) => {
+      let request = new Request(endpoint, {
+        headers: new Headers({
+          "Content-Type": "text/json",
+          "x-api-key": process.env.AP_API_KEY,
+        }),
+        method: "GET",
+      });
 
-    //dynamically update the URL with the dates above
-
-    const URL =
-      "https://api.ap.org/v3/elections/2024-08-13?format=JSON&officeID=D,H,S&uncontested=false";
-    //?"https://api.ap.org/v3/elections/2024-06-04?format=JSON&officeID=D,H,S&uncontested=false";
-    const headers = { "x-api-key": process.env.AP_API_KEY };
-    const response = await axios({
-      url: URL,
-      headers,
+      return fetch(request).then((res) => res.json());
     });
 
-    const data = response.data;
+    const demData = [];
 
-    return data;
+    await Promise.all(requestsArray).then(([...data]) => {
+      return data.map((d, i) => {
+        const electionDate = d.electionDate;
+        const races = d.races;
+        races.map((r) => (r.electionDate = electionDate));
+        demData.push(races);
+      });
+    });
+
+    return demData;
   } catch (error) {
     console.error(error);
   }
