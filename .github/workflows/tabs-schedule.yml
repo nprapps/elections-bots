@@ -7,7 +7,7 @@ jobs:
     runs-on: ubuntu-latest
     container: "node:16"
     outputs:
-      output1: ${{ steps.step1.outputs }}
+      output1: ${{ steps.step1.outputs.bool }}
     steps:
       - name: Checkout
         uses: actions/checkout@v3
@@ -18,7 +18,10 @@ jobs:
         env:
           SHEETS_ID: ${{secrets.SHEETS_ID}}
           GOOGLE_CREDENTIALS: ${{secrets.GOOGLE_CREDENTIALS}}
-        run: node elex-tabulation-data/main.js
+        run: |
+          shouldRunEndpoint=$(node elex-tabulation-data/main.js)
+          echo ""::set-output name=bool::$shouldRunEndpoint"
+
 # Do I hve to checkout and install again?
   job2:
       runs-on: ubuntu-latest
