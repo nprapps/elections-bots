@@ -5,7 +5,7 @@ on:
     - cron: "*/20 * * * *"
 
 jobs:
-  job2:
+  build-node:
     runs-on: ubuntu-latest
     container: "node:20"
     steps:
@@ -19,6 +19,4 @@ jobs:
           SLACK_TOKEN: ${{secrets.SLACK_TOKEN}}
           AP_API_KEY: ${{secrets.AP_API_KEY}}
           GOOGLE_CREDENTIALS: ${{secrets.GOOGLE_CREDENTIALS}}
-        run: |
-          # echo ${{needs.runEndpoint.outputs.output1}}
-          node elex-tabulation-data/index.js
+        run: node elex-tabulation-data/index.js
