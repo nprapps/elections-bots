@@ -18,7 +18,6 @@ var { google } = require("googleapis");
 
 async function readMetadata(range) {
   const GOOGLE_CREDENTIALS = JSON.parse(process.env.GOOGLE_CREDENTIALS);
-
   const client = new google.auth.GoogleAuth({
     credentials: GOOGLE_CREDENTIALS,
     scopes: ["https://www.googleapis.com/auth/spreadsheets"],
@@ -53,7 +52,6 @@ async function readMetadata(range) {
         return endpoints;
       } else {
         //? This is the ga_run tab
-        console.log(rows[0][0]);
         return rows[0][0].toLowerCase();
       }
     }
