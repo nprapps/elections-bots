@@ -1,5 +1,5 @@
 async function main() {
-  console.log("false");
+  console.log("true");
   return false;
 }
 
