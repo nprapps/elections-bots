@@ -12,7 +12,7 @@ async function getDataFromSheets() {
   const sheets = google.sheets({ version: "v4", auth: client });
 
   const spreadsheetId = process.env.SHEETS_ID;
-  const range = "Sheet1!A4:Z10000";
+  const range = "Tabulation_Data!A4:Z10000";
 
   // var auth = login.getClient();
   // const sheets = google.sheets({ version: "v4", auth });
