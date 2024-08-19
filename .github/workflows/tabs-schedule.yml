@@ -21,6 +21,7 @@ jobs:
         run: |
           shouldRunEndpoint=$(node elex-tabulation-data/main.js)
           echo $shouldRunEndpoint
+          echo "shajia"
           echo "bool=$shouldRunEndpoint" >> $GITHUB_OUTPUT
 
 # Do I hve to checkout and install again?
