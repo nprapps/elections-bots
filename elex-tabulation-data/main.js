@@ -1,6 +1,6 @@
 async function main() {
-  console.log(true);
-  return true;
+  console.log(false);
+  return false;
 }
 
 main();
