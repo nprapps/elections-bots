@@ -1,4 +1,4 @@
-import { readMetadata } from "./sheets/readMetadata";
+const { readMetadata } = require("./sheets/readMetadata");
 
 async function main() {
   const shouldGARun = await readMetadata("RUN_GA!A1");
