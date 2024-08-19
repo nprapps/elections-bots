@@ -2,7 +2,7 @@ const { readMetadata } = require("./sheets/readMetadata");
 
 async function main() {
   const shouldGARun = await readMetadata("RUN_GA!A1");
-  const output = shouldGARun.toLowerCase();
+  const output = Boolean(shouldGARun);
   console.log(output);
   return false;
 }

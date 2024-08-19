@@ -10,7 +10,7 @@ const { readMetadata } = require("./sheets/readMetadata");
 (async function () {
   const shouldGARun = await readMetadata("RUN_GA!A1");
 
-  if (shouldGARun.toLowerCase() === "TRUE".toLowerCase()) {
+  if (shouldGARun === "TRUE".toLowerCase()) {
     const endpointsToRun = await readMetadata("Metadata!A2:Z10000");
 
     const elexData = await getElexData(endpointsToRun);
