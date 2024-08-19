@@ -42,4 +42,4 @@ jobs:
             GOOGLE_CREDENTIALS: ${{secrets.GOOGLE_CREDENTIALS}}
           run: |
             echo ${{needs.runEndpoint.outputs.output1}}
-          # run: node elex-tabulation-data/index.js
+            node elex-tabulation-data/index.js
