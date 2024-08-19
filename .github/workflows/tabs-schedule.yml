@@ -21,14 +21,13 @@ jobs:
         run: |
           shouldRunEndpoint=$(node elex-tabulation-data/main.js)
           echo $shouldRunEndpoint
-          echo "shajia"
           echo "bool=$shouldRunEndpoint" >> $GITHUB_OUTPUT
 
 # Do I hve to checkout and install again?
   job2:
       runs-on: ubuntu-latest
       needs: runEndpoint 
-      if: needs.runEndpoint.outputs.output1 == true
+      if: needs.runEndpoint.outputs.output1
       container: "node:16"
       steps:
         - name: Checkout
