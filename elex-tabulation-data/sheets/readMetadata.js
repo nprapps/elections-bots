@@ -25,7 +25,7 @@ async function readMetadata(range) {
 
   const sheets = google.sheets({ version: "v4", auth: client });
   const baseURL = "https://api.ap.org/v3/elections";
-  const queryParam = `format=JSON&officeID=D,H,S&uncontested=false`;
+  const queryParam = `format=JSON&officeID=H,S,I`;
   const spreadsheetId = process.env.SHEETS_ID;
 
   try {

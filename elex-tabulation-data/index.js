@@ -15,6 +15,7 @@ const { readMetadata } = require("./sheets/readMetadata");
 
     const elexData = await getElexData(endpointsToRun);
     const sheetsData = await getDataFromSheets();
+
     if (sheetsData) {
       const [messageData, addUpdatedDataToSheets] = await compareAndUpdateData(
         sheetsData,
@@ -29,9 +30,10 @@ const { readMetadata } = require("./sheets/readMetadata");
       }
     } else {
       const dataToAddToTheSheets = formatToAddToSheets(
-        elexData,
+        elexData[0],
         elexData.electionDate
       );
+
       await writeElexDataToSheets(dataToAddToTheSheets);
     }
   }
