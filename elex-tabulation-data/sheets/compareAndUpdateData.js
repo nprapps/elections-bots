@@ -39,7 +39,10 @@ async function compareAndUpdateData(dataFromSheets, elexData) {
       );
 
       if (match) {
-        if (
+        if (match.raceCallStatus == "Called") {
+          updatedData.push(match);
+          ids.push(match.uniqueID);
+        } else if (
           (curVal.tabulationStatus !== match.tabulationStatus &&
             match.tabulationStatus !== "Vote Certified") ||
           curVal.raceCallStatus !== match.raceCallStatus
