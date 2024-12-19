@@ -32,6 +32,7 @@ async function compareAndUpdateData(dataFromSheets, elexData) {
   const messageData = [];
   const ids = [];
 
+  // curVal === value in sheets
   mergedData.map((curVal, index, arr) => {
     const uniqueID = curVal.uniqueID;
     let arryToFindIn =
@@ -44,7 +45,7 @@ async function compareAndUpdateData(dataFromSheets, elexData) {
       );
 
       if (match) {
-        if (match.raceCallStatus == "Called") {
+        if (curVal.raceCallStatus == "Called") {
           updatedData.push(match);
           ids.push(match.uniqueID);
         } else if (
