@@ -1,3 +1,27 @@
+/**
+ * This functions formats the election data (which is an array of objects)
+ * so it's easier to compare it with the google sheets data (which is a nested array)
+ *
+ * @param {[{}]} elexData
+ * @returns {[{
+        uniqueID: string,
+        electionDate: string,
+        officeID: string,
+        officeName: string,
+        stateID: string,
+        seatName: string,
+        seatNum: string,
+        stateName: string,
+        raceID: string,
+        raceType: string,
+        tabulationStatus: string,
+        raceCallStatus: string,
+        candidates: [{}],
+        statePostal: number
+      }]} 
+    formatted data
+      
+ */
 function formatElexData(elexData) {
   let values = [];
   elexData.map((race, i) => {

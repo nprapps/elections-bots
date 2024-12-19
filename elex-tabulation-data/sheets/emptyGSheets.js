@@ -1,6 +1,9 @@
 require("dotenv").config();
 var { google } = require("googleapis");
-
+/**
+ * This function empties the google sheet
+ * @returns status code of the API Call
+ */
 async function emptyGSheets() {
   const GOOGLE_CREDENTIALS = JSON.parse(process.env.GOOGLE_CREDENTIALS);
 
@@ -20,7 +23,7 @@ async function emptyGSheets() {
       range,
     });
     console.log("Data cleared");
-    return result;
+    return result.status;
   } catch (err) {
     throw err;
   }

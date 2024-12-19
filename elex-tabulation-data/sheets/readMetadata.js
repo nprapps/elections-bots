@@ -1,21 +1,11 @@
 require("dotenv").config();
 var { google } = require("googleapis");
 
-// rows: [
-//     [ '6/18/2024', 'FALSE', 'FALSE', 'FALSE', 'TRUE' ],
-//     [ '6/25/2024', 'FALSE', 'FALSE', 'FALSE' ],
-//     [ '7/30/2024', 'FALSE', 'FALSE', 'FALSE' ],
-//     [ '8/1/2024', 'FALSE', 'FALSE', 'FALSE' ],
-//     [ '8/6/2024', 'FALSE', 'FALSE', 'FALSE' ],
-//     [ '8/10/2024', 'FALSE', 'FALSE', 'FALSE' ],
-//     [ '8/13/2024', 'FALSE', 'FALSE', 'FALSE' ],
-//     [ '8/20/2024', 'FALSE', 'FALSE', 'FALSE' ],
-//     [ '8/27/2024', 'FALSE', 'FALSE', 'FALSE' ],
-//     [ '9/3/2024', 'FALSE', 'FALSE', 'FALSE' ],
-//     [ '9/10/2024', 'FALSE', 'FALSE', 'FALSE' ],
-//     [ '11/5/2024', 'FALSE', 'TRUE', 'TRUE' ]
-//   ]
-
+/**
+ *
+ * @param {String} range - of the google sheet
+ * @returns boolean - should run github actions or not?
+ */
 async function readMetadata(range) {
   const GOOGLE_CREDENTIALS = JSON.parse(process.env.GOOGLE_CREDENTIALS);
   const client = new google.auth.GoogleAuth({
