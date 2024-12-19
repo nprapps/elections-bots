@@ -1,6 +1,11 @@
 require("dotenv").config();
 var { google } = require("googleapis");
 
+/**
+ * This function reads data from the Tabulation_Data sheet
+ * and returns it as an array of objects.
+ * @returns {[{}]} Election data from Google Sheet
+ */
 async function getDataFromSheets() {
   const GOOGLE_CREDENTIALS = JSON.parse(process.env.GOOGLE_CREDENTIALS);
 
@@ -13,9 +18,6 @@ async function getDataFromSheets() {
 
   const spreadsheetId = process.env.SHEETS_ID;
   const range = "Tabulation_Data!A4:Z10000";
-
-  // var auth = login.getClient();
-  // const sheets = google.sheets({ version: "v4", auth });
 
   try {
     const result = await sheets.spreadsheets.values.get({

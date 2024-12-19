@@ -1,3 +1,9 @@
+/**
+ * This function gets election data from AP's API
+ *
+ * @param {Array} endpointsToRun
+ * @returns {[{}]} AP's election data
+ */
 async function getElexData(endpointsToRun) {
   try {
     let requestsArray = endpointsToRun.map((endpoint) => {

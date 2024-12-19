@@ -1,3 +1,8 @@
+/**
+ *
+ * @param {AP Testing Data} elexData
+ * @returns [[]] returns nested arrays of today's data
+ */
 function getTodaysTests(elexData) {
   const todaysDate = new Date().toDateString();
 

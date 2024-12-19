@@ -24,7 +24,7 @@ const { readMetadata } = require("./sheets/readMetadata");
       // ? delete everything from the sheets
       await emptyGSheets();
       await writeElexDataToSheets(addUpdatedDataToSheets);
-      // ? send message to slack
+      // ? send message to slack if there is any updated data
       if (messageData.length > 0) {
         await formatMessage(messageData);
       }

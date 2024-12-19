@@ -2,20 +2,25 @@ const { formatElexData } = require("../../helpers/formatElexData");
 const { formatToAddToSheets } = require("../../helpers/formatToAddToSheets");
 
 /**
- * @param {*} formattedElexData
- * @param {*} dataFromSheets 
+ * This function compares the latest AP data with the data saved in google sheets. 
+ * 
+ * @param {[{}]} elexData
+ * @param {[{}]} dataFromSheets 
     [{
-      uniqueID: '41902-41',
-      electionDate: undefined,
-      officeID: 'H',
-      stateID: '41',
-      seatName: "",
-      seatNum: "",
-      stateName: undefined,
-      raceID: '41902',
-      tabulationStatus: 'Active Tabulation',
-      raceCallStatus: 'Too Early to Call'
+      uniqueID: string,
+      electionDate: string,
+      officeID: string,
+      stateID: string,
+      seatName: string,
+      seatNum: string,
+      stateName: string,
+      raceID: string,
+      tabulationStatus: string,
+      raceCallStatus: string
     }]
+ * @returns {} messageData - updated data for which we need to notify slack
+ * @returns {} addUpdatedDataToSheets - 
+
  */
 async function compareAndUpdateData(dataFromSheets, elexData) {
   const formattedElexData = formatElexData(elexData.flat());

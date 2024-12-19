@@ -1,13 +1,11 @@
 require("dotenv").config();
 var { google } = require("googleapis");
 
-// Format to add to gsheets
-// const values = [
-//   ["Wheel", "$20.50", "4", "3/1/2016"],
-//   ["Door", "$15", "2", "3/15/2016"],
-//   ["Engine", "$100", "1", "3/20/2016"],
-// ];
-
+/**
+ * This function writes data to the google sheet
+ * @param {[[],[]]} values
+ * @returns status code of the API call
+ */
 async function writeElexDataToSheets(values) {
   const GOOGLE_CREDENTIALS = JSON.parse(process.env.GOOGLE_CREDENTIALS);
 
@@ -30,7 +28,7 @@ async function writeElexDataToSheets(values) {
       resource: { values },
     });
     console.log("%d cells updated.", result.data.updates.updatedCells);
-    return result;
+    return result.status;
   } catch (err) {
     throw err;
   }

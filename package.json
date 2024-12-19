@@ -9,7 +9,6 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "@nprapps/google-login": "^1.0.2",
     "@slack/web-api": "^7.0.2",
     "axios": "^1.6.8",
     "dotenv": "^16.4.5",

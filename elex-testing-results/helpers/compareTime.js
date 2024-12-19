@@ -2,42 +2,6 @@ const { getTodaysTests } = require("./getTodaysTests");
 const { diff_minutes } = require("./diffMinutes");
 
 async function compareTime(elexTestData) {
-  const fakeData = {
-    lastUpdatedDate: "April 11, 2024",
-    testInformation: [
-      [
-        "2024-04-26",
-        "PR Dem Presidential Primary",
-        "Customer Testing",
-        "3:30 pm-7:00 pm",
-      ],
-      [
-        "2024-04-26",
-        "NY CD 26 Special Election",
-        "Customer Testing",
-        "4:00 am-7:30 pm",
-      ],
-      [
-        "2024-04-26",
-        "NY CD 26 Special Election",
-        "Customer Testing",
-        "4:30 pm-7:30 pm",
-      ],
-      [
-        "2024-04-26",
-        "NY CD 26 Special Election",
-        "Customer Testing",
-        "12:10 pm-7:30 pm",
-      ],
-      [
-        "2024-04-26",
-        "NY CD 26 Special Election",
-        "Customer Testing",
-        "7:00 pm-7:30 pm",
-      ],
-    ],
-  };
-
   const todaysTests = getTodaysTests(elexTestData);
   const currentTime = new Date();
 
