@@ -16,6 +16,6 @@ To run this project you will need node installed (preferably with NVM or another
 
 With that installed, you can then set the project up using your terminal:
 
-- Pull the code - git clone git@github.com:nprapps/elections-bots.git
-- Enter the project folder - cd elections-bots
-- Install dependencies from NPM - npm install
+- Pull the code - `git clone git@github.com:nprapps/elections-bots.git`
+- Enter the project folder - `cd elections-bots`
+- Install dependencies from NPM - `npm install`
