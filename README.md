@@ -8,6 +8,8 @@ This repo contains election-related bots that would offer 3 kinds of notificatio
 2. A list of all scheduled tests that day, posted at the beginning of the workday
 3. A list of races for which the tabulation status or race call status changes
 
+**Related blog post:** [Election bots](https://blog.apps.npr.org/2025/01/29/election-bots.html) — How we used GitHub and Slack to stay up to date during the 2024 election season.
+
 ## Installation
 
 To run this project you will need node installed (preferably with NVM or another version manager)
