@@ -3,6 +3,7 @@ name: AP Testing Calendar
 on:  
   schedule:
     - cron: "25,55 * * * *"
+  workflow_dispatch:
     
 jobs:
   build-node:
