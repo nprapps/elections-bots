@@ -2,7 +2,8 @@ const { WebClient } = require("@slack/web-api");
 const { getStagingLink } = require("../helpers/getStagingLink");
 require("dotenv").config();
 
-const channelID = "C047GGNN7PT";
+// const channelID = "C047GGNN7PT"; // team channel
+const channelID = "C06TYKYGGM9"; // test channel
 const web = new WebClient(process.env.SLACK_TOKEN);
 
 async function sendMessageToSlack(data, type) {
@@ -31,7 +32,8 @@ async function sendMessageToSlack(data, type) {
       text:
         type === "scheduleMessage"
           ? scheduledText
-          : intervalMessage + stagingLinks + "\n" + configReminder,
+          // : intervalMessage + stagingLinks + "\n" + configReminder,
+          : intervalMessage,
     });
 
     console.log("Message has been posted");
