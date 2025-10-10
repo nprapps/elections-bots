@@ -2,7 +2,8 @@ const { WebClient } = require("@slack/web-api");
 const { getStagingLink } = require("../helpers/getStagingLink");
 require("dotenv").config();
 
-const channelID = "C047GGNN7PT";
+// const channelID = "C047GGNN7PT"; // team channel
+const channelID = "C06TYKYGGM9"; // test channel
 const web = new WebClient(process.env.SLACK_TOKEN);
 
 async function sendMessageToSlack(data, type) {
