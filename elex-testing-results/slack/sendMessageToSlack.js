@@ -31,7 +31,8 @@ async function sendMessageToSlack(data, type) {
       text:
         type === "scheduleMessage"
           ? scheduledText
-          : intervalMessage + stagingLinks + "\n" + configReminder,
+          // : intervalMessage + stagingLinks + "\n" + configReminder,
+          : intervalMessage,
     });
 
     console.log("Message has been posted");
