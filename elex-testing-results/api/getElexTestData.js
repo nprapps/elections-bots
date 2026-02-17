@@ -3,11 +3,11 @@ const { getUpcomingTests } = require("../helpers/getUpcomingTests");
 const { formatData } = require("../helpers/formatData");
 
 const URL =
-  "https://api.ap.org/v3/reports/Calendar-CustomerTesting2025-Live?format=json";
+  "https://api.ap.org/v3/reports/Calendar-CustomerTesting2026-Live?format=json";
 const headers = { "x-api-key": process.env.AP_API_KEY };
 
 //this will need to be updated when needed
-const calendarYear = "ElectionTestingSchedule2025";
+const calendarYear = "ElectionTestingSchedule2026";
 
 async function getElexTestData() {
   try {
